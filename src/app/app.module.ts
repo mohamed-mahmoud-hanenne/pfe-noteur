@@ -11,6 +11,14 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { SigninComponent } from './Components/signin/signin.component';
 import { LoginComponent } from './Components/login/login.component';
 import { SericesComponent } from './Components/serices/serices.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-admin.component';
+
 
 @NgModule({
   declarations: [
@@ -22,11 +30,19 @@ import { SericesComponent } from './Components/serices/serices.component';
     ContactComponent,
     SigninComponent,
     LoginComponent,
-    SericesComponent
+    SericesComponent,
+    DashbordAdminComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+   
+
   ],
   providers: [],
   bootstrap: [AppComponent]
