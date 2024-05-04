@@ -18,6 +18,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-admin.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-adm
     SigninComponent,
     LoginComponent,
     SericesComponent,
-    DashbordAdminComponent
+    DashbordAdminComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-adm
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-   
+    HttpClientModule
 
   ],
   providers: [],

@@ -6,6 +6,7 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { SigninComponent } from './Components/signin/signin.component';
 import { LoginComponent } from './Components/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
+import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-admin.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/home', pathMatch:'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'contact',component:ContactComponent,title:'Contact'},
   {path:'signin',component:SigninComponent,title:'Sign In'},
   {path:'login',component:LoginComponent,title:'Login'},
+  {path:'dashbord',component:DashbordAdminComponent,title:'Dashbord'},
 
 
 ];

@@ -1,1 +1,4 @@
-<p>home</p>
+<div *ngFor="let user of users; index as i">
+    <p>{{user.name}}</p>
+    <p>{{user.email}}</p>
+</div>
