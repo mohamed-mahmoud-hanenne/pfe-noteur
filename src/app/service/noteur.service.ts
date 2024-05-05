@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../Models/user';
+import { Acheteur } from '../Models/acheteur';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,11 +8,19 @@ import { Observable } from 'rxjs';
 })
 export class NoteurService {
   
- private api = 'http://127.0.0.1:8000/login';
- httpHeaders = new HttpHeaders().set('content-type','application/json')
+ private api = 'http://127.0.0.1:8000/api';
+//  httpHeaders = new HttpHeaders().set('content-type','application/json')
   constructor(private http: HttpClient) { }
 
-  getUsers():Observable<User[]>{
-    return this.http.get<User[]>(`${this.api}`)
+  getAcheteurs():Observable<any> {
+    return this.http.get(`${this.api}/acheteur`);
+}
+
+  getAdmin():Observable<any>{
+    return this.http.get(`${this.api}/auth`);
+  }
+
+  getVendeurs():Observable<any>{
+    return this.http.get(`${this.api}/vendeur`);
   }
 }

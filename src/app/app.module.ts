@@ -18,7 +18,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-admin.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { AcheteursComponent } from './Components/acheteurs/acheteurs.component';
+import { VendeursComponent } from './Components/vendeurs/vendeurs.component';
+import { TerrainComponent } from './Components/terrain/terrain.component';
 
 
 
@@ -34,6 +38,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     SericesComponent,
     DashbordAdminComponent,
+    AcheteursComponent,
+    VendeursComponent,
+    TerrainComponent,
    
   ],
   imports: [
@@ -44,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
   providers: [],

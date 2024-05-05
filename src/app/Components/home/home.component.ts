@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/Models/user';
+import { Acheteur } from 'src/app/Models/acheteur';
 import { NoteurService } from 'src/app/service/noteur.service';
 
 @Component({
@@ -8,16 +8,16 @@ import { NoteurService } from 'src/app/service/noteur.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
-  users: User[] = [];
-  constructor(private userservice: NoteurService){}
+  data: Acheteur[] = [];
+
+  constructor(private noteurservice: NoteurService) {}
 
   ngOnInit(): void {
-    this.getusers();
+      this.noteurservice.getAcheteurs().subscribe((response) => {
+          this.data = response;
+          
+      });
   }
 
-  getusers(){
-    this.userservice.getUsers().subscribe(user=>{
-      this.users = user
-    })
-  }
+
 }

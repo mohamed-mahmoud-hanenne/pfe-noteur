@@ -7,12 +7,13 @@
                   <img src="/assets/images.jpg" width="100">
               </div>
               <h3 class="text-center mb-4">Login</h3>
-                    <form action="#" class="login-form" >
+                    <form action="#" class="login-form">
+                   
                   <div class="form-group">
                       <!-- <input type="text" class="form-control rounded-left" placeholder="Username" required> -->
                       <mat-form-field appearance="outline" class="ml-5">
                         <mat-label>Entrer Votre Nom</mat-label>
-                        <input matInput placeholder="Placeholder" >
+                        <input matInput placeholder="Placeholder" [(ngModel)] = "email" name="email">
                         <mat-icon matSuffix>account_circle</mat-icon>
                       </mat-form-field>
                   </div>
@@ -20,7 +21,7 @@
               <!-- <input type="password" class="form-control rounded-left" placeholder="Password" required> -->
               <mat-form-field appearance="outline" class="ml-5">
                 <mat-label>Enter Votre Mot de passe</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" >
+                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)] = "password" name="password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
