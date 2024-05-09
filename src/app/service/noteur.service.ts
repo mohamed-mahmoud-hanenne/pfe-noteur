@@ -23,4 +23,16 @@ export class NoteurService {
   getVendeurs():Observable<any>{
     return this.http.get(`${this.api}/vendeur`);
   }
+
+  getTerrains():Observable<any>{
+    return this.http.get(`${this.api}/terrain`);
+  }
+
+  getActes():Observable<any>{
+    return this.http.get(`${this.api}/acte`)
+  }
+
+  addAcheteur(acheteur:Acheteur):Observable<any>{
+   return this.http.post(`${this.api}/addacheteur`,acheteur)
+  }
 }

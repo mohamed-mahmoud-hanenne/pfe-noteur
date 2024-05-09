@@ -1,14 +1,14 @@
 
-  <body>
+<body>
     <div class="container" >
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Gérer <b>Acheteurs</b></h2>
+						<h2>Gérer <b>Actes</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a routerLink="/add-acheteur" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						
 					</div>
                 </div>
@@ -23,17 +23,19 @@
 							</span>
 						</th>
                         <th>Id</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-						<th>Date de naissance</th>
-                        <th>Adresse</th>
-                        <th>NNI</th>
-                        <th>Télephone</th>
-                        <th>Email</th>
+                        <th>Identifiant terrain</th>
+                        <th>Localisation</th>
+						<th>Superficie</th>
+                        <th>Description</th>
+                        <th>Proprietaire</th>
+                        <th>Coordonnees gps</th>
+                        <th>Prix</th>
+                        <th>Statut juridique</th>
+                        <th>Date acquisition</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody  *ngFor="let acheteur of acheteurs; index as i">
+                <tbody  *ngFor="let acte of actes; index as i">
                     <tr>
 						<td>
 							<span class="custom-checkbox">
@@ -41,14 +43,17 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td>{{acheteur.id}}</td>
-                        <td>{{acheteur.nom}}</td>
-                        <td>{{acheteur.prenom}}</td>
-						<td>{{acheteur.date_naissance}}</td>
-                        <td>{{acheteur.adresse}}</td>
-                        <td>{{acheteur.NNI}}</td>
-                        <td>{{acheteur.numero_tel}}</td>
-                        <td>{{acheteur.email}}</td>
+                        <td>{{acte.id}}</td>
+                        <td>{{acte.date_transaction}}</td>
+                        <td>{{acte.montant}}</td>
+						<td>{{acte.nom_temoin}}</td>
+                        <td>{{acte.NNI_temoin}}</td>
+                        <td>{{acte.nom_notaire}}</td>
+                        <td>{{acte.NNI_notaire}}</td>
+                        <td>{{acte.frais_notaire}}</td>
+                        <td>{{acte.id_acheteur}}</td>
+                        <td>{{acte.id_vendeur}}</td>
+                        <td>{{acte.id_terrain}}</td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

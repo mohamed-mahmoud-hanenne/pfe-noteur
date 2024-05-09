@@ -9,6 +9,9 @@ import { HomeComponent } from './Components/home/home.component';
 import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-admin.component';
 import { AcheteursComponent } from './Components/acheteurs/acheteurs.component';
 import { VendeursComponent } from './Components/vendeurs/vendeurs.component';
+import { ActeComponent } from './Components/acte/acte.component';
+import { TerrainComponent } from './Components/terrain/terrain.component';
+import { AddAcheteurComponent } from './Components/add-acheteur/add-acheteur.component';
 
 const routes: Routes = [
   // {path:'',redirectTo:'/home', pathMatch:'full'},
@@ -18,10 +21,13 @@ const routes: Routes = [
   // {path:'contact',component:ContactComponent,title:'Contact'},
   // {path:'signin',component:SigninComponent,title:'Sign In'},
   // {path:'login',component:LoginComponent,title:'Login'},
+  
   {path:'dashbord',component:DashbordAdminComponent,title:'Dashbord'},
-
   {path:'acheteurs',component:AcheteursComponent,title:'Acheteurs'},
-  {path:'vendeurs',component:VendeursComponent,title:'vendeurs'},
+  {path:'vendeurs',component:VendeursComponent,title:'Vendeurs'},
+  {path:'terrain',component:TerrainComponent,title:'Terrain'},
+  {path:'acte',component:ActeComponent,title:'Acte'},
+  {path:'add-acheteur',component:AddAcheteurComponent,title:'Ajout-acheteur'},
 
 ];
 

@@ -5,7 +5,7 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-						<h2>Gérer <b>Vendeurs</b></h2>
+						<h2>Gérer <b>Terrains</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
@@ -23,17 +23,19 @@
 							</span>
 						</th>
                         <th>Id</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-						<th>Date de naissance</th>
-                        <th>Adresse</th>
-                        <th>NNI</th>
-                        <th>Télephone</th>
-                        <th>Email</th>
+                        <th>Identifiant terrain</th>
+                        <th>Localisation</th>
+						<th>Superficie</th>
+                        <th>Description</th>
+                        <th>Proprietaire</th>
+                        <th>Coordonnees gps</th>
+                        <th>Prix</th>
+                        <th>Statut juridique</th>
+                        <th>Date acquisition</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody  *ngFor="let vendeur of vendeurs; index as i">
+                <tbody  *ngFor="let terrain of terrains; index as i">
                     <tr>
 						<td>
 							<span class="custom-checkbox">
@@ -41,14 +43,16 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td>{{vendeur.id}}</td>
-                        <td>{{vendeur.nom}}</td>
-                        <td>{{vendeur.prenom}}</td>
-						<td>{{vendeur.date_naissance}}</td>
-                        <td>{{vendeur.adresse}}</td>
-                        <td>{{vendeur.NNI}}</td>
-                        <td>{{vendeur.numero_tel}}</td>
-                        <td>{{vendeur.email}}</td>
+                        <td>{{terrain.id}}</td>
+                        <td>{{terrain.Identifiant_terrain}}</td>
+                        <td>{{terrain.localisation}}</td>
+						<td>{{terrain.superficie}}</td>
+                        <td>{{terrain.description}}</td>
+                        <td>{{terrain.proprietaire}}</td>
+                        <td>{{terrain.coordonnees_gps}}</td>
+                        <td>{{terrain.prix}}</td>
+                        <td>{{terrain.statut_juridique}}</td>
+                        <td>{{terrain.date_acquisition}}</td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

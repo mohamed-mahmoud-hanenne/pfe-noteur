@@ -19,10 +19,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import { DashbordAdminComponent } from './Components/dashbord-admin/dashbord-admin.component';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AcheteursComponent } from './Components/acheteurs/acheteurs.component';
 import { VendeursComponent } from './Components/vendeurs/vendeurs.component';
 import { TerrainComponent } from './Components/terrain/terrain.component';
+import { ActeComponent } from './Components/acte/acte.component';
+import { AddAcheteurComponent } from './Components/add-acheteur/add-acheteur.component';
 
 
 
@@ -41,6 +43,8 @@ import { TerrainComponent } from './Components/terrain/terrain.component';
     AcheteursComponent,
     VendeursComponent,
     TerrainComponent,
+    ActeComponent,
+    AddAcheteurComponent,
    
   ],
   imports: [
@@ -52,7 +56,8 @@ import { TerrainComponent } from './Components/terrain/terrain.component';
     MatInputModule,
     MatFormFieldModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [],

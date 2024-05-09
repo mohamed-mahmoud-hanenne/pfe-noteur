@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NoteurService } from 'src/app/service/noteur.service';
-import { Acheteur } from 'src/app/Models/acheteur';
+import { Terrain } from 'src/app/Models/terrain';
 
 @Component({
   selector: 'app-terrain',
   templateUrl: './terrain.component.html',
   styleUrls: ['./terrain.component.scss']
 })
-export class TerrainComponent {
+export class TerrainComponent implements OnInit{
 
-  vendeurs: Acheteur[] = [];
+  terrains: Terrain[] = [];
 
   constructor(private noteurservice: NoteurService){}
 
   ngOnInit(): void {
-    this.noteurservice.getVendeurs().subscribe(v=>{
-      this.vendeurs = v;
+    this.noteurservice.getTerrains().subscribe(t=>{
+      this.terrains = t;
   
     });
   }

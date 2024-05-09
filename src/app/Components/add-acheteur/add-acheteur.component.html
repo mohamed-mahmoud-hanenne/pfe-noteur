@@ -1,0 +1,113 @@
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="acheteurForm" (ngSubmit)="addAcheteur()">
+        <div class="form-group p-2 mb-3">
+          <label for="">Nom</label>
+          <input type="text" class="form-control " formControlName="nom">
+          <span
+          *ngIf="acheteurForm.controls['nom'].invalid && (acheteurForm.controls['nom'].dirty || acheteurForm.controls['nom'].touched)">
+          <span class="text-danger" *ngIf="acheteurForm.controls?.['nom']?.errors?.['required']">required
+          </span>
+        </span>
+  
+        <span *ngIf="acheteurForm.controls['nom'].valid">
+          <span class="text-success" >Nom validé</span>
+        </span>
+  
+        </div>
+        <div class="form-group p-2 mb-3">
+          <label for="">Prenom</label>
+          <input type="text" class="form-control " formControlName="prenom">
+          <span
+          *ngIf="acheteurForm.controls['prenom'].invalid && (acheteurForm.controls['prenom'].dirty || acheteurForm.controls['prenom'].touched)">
+          <span class="text-danger" *ngIf="acheteurForm.controls?.['prenom']?.errors?.['required']">required
+          </span>
+        </span>
+  
+        <span *ngIf="acheteurForm.controls['prenom'].valid">
+          <span class="text-success" >Prenom validé</span>
+        </span>
+  
+        </div>
+
+        <div class="form-group p-2 mb-3">
+            <label for="">Date de naissance</label>
+            <input type="date" class="form-control " formControlName="date_naissance">
+            <span
+            *ngIf="acheteurForm.controls['date_naissance'].invalid && (acheteurForm.controls['date_naissance'].dirty || acheteurForm.controls['date_naissance'].touched)">
+            <span class="text-danger" *ngIf="acheteurForm.controls?.['date_naissance']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="acheteurForm.controls['date_naissance'].valid">
+            <span class="text-success" >Date de naissance validé</span>
+          </span>
+    
+          </div>
+
+          <div class="form-group p-2 mb-3">
+            <label for="">Adress</label>
+            <input type="text" class="form-control "formControlName="adress">
+            <span
+            *ngIf="acheteurForm.controls['adress'].invalid && (acheteurForm.controls['adress'].dirty || acheteurForm.controls['adress'].touched)">
+            <span class="text-danger" *ngIf="acheteurForm.controls?.['adress']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="acheteurForm.controls['adress'].valid">
+            <span class="text-success" >Adress validé</span>
+          </span>
+          
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">NNI</label>
+            <input type="text" class="form-control "formControlName="NNI">
+            <span
+            *ngIf="acheteurForm.controls['NNI'].invalid && (acheteurForm.controls['NNI'].dirty || acheteurForm.controls['NNI'].touched)">
+            <span class="text-danger" *ngIf="acheteurForm.controls?.['NNI']?.errors?.['maxlength']">NNI incorrect
+            </span>
+          </span>
+    
+          <span *ngIf="acheteurForm.controls['NNI'].valid">
+            <span class="text-success" >NNI validé</span>
+          </span>
+          
+          </div>
+
+        <div class="form-group p-2 mb-3">
+          <label for="">Telephone</label>
+          <input type="tel" class="form-control " formControlName="phone">
+          <span
+          *ngIf="acheteurForm.controls['phone'].invalid && (acheteurForm.controls['phone'].dirty || acheteurForm.controls['phone'].touched)">
+          <span class="text-danger" *ngIf="acheteurForm.controls?.['phone']?.errors?.['maxlength']">numero incorrect
+          </span>
+        </span>
+        
+        <span *ngIf="acheteurForm.controls['phone'].valid">
+          <span class="text-success" >Numéro telephone validé</span>
+        </span>
+  
+        </div>
+       
+        <div class="form-group p-2 mb-3">
+            <label for="">Email</label>
+            <input type="email" class="form-control " formControlName="email">
+            <span
+            *ngIf="acheteurForm.controls['email'].invalid && (acheteurForm.controls['email'].dirty || acheteurForm.controls['email'].touched)">
+            <span class="text-danger" *ngIf="acheteurForm.controls?.['email']?.errors?.['email']">email incorrect
+            </span>
+          </span>
+          <span *ngIf="acheteurForm.controls['email'].valid && (acheteurForm.controls['email'].dirty || acheteurForm.controls['email'].touched)">
+            <span class="text-success" >Email validé</span>
+          </span>
+    
+          </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn but" (click)="retourAcheteur()"> Annuler</button>
+          <button class="btn btn-primary p-2" [disabled]="acheteurForm.invalid"> Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

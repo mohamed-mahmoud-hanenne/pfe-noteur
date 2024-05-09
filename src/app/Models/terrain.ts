@@ -24,6 +24,6 @@ export class Terrain {
         this.coordonnees_gps = coordonnees_gps;
         this.prix = prix
         this.statut_juridique = statut_juridique;
-        this.date_acquisition = date_acquisition
+        this.date_acquisition = date_acquisition;
     }
 }
