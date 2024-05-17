@@ -50,8 +50,8 @@
                         <td>{{acheteur.numero_tel}}</td>
                         <td>{{acheteur.email}}</td>
                         <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a class="edit" data-toggle="modal" routerLink="/acheteur-detail/{{acheteur.id}}"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a class="delete" data-toggle="modal" (click)="delete(acheteur.id,i)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                  

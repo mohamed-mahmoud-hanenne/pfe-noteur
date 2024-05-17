@@ -18,4 +18,10 @@ export class ActeComponent implements OnInit{
       this.actes = ac;
     });
   }
+
+  deleteActe(id:number,i:any){
+    this.noteurservice.deleteActe(id).subscribe(res=>{
+      this.actes.splice(i,1);
+    })
+  }
 }

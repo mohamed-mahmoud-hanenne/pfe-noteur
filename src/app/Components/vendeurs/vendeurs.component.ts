@@ -15,7 +15,12 @@ export class VendeursComponent implements OnInit{
   ngOnInit(): void {
     this.noteurservice.getVendeurs().subscribe(v=>{
       this.vendeurs = v;
-  
     });
+  }
+
+  deleteVendeur(id:number,i:any){
+    this.noteurservice.deleteVendeur(id).subscribe(res=>{
+      this.vendeurs.splice(i,1)
+    })
   }
 }

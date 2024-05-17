@@ -25,6 +25,12 @@ import { VendeursComponent } from './Components/vendeurs/vendeurs.component';
 import { TerrainComponent } from './Components/terrain/terrain.component';
 import { ActeComponent } from './Components/acte/acte.component';
 import { AddAcheteurComponent } from './Components/add-acheteur/add-acheteur.component';
+import { AcheteurDetailComponent } from './Components/acheteur-detail/acheteur-detail.component';
+import { AddVendeurComponent } from './Components/add-vendeur/add-vendeur.component';
+import { VendeurDetailComponent } from './Components/vendeur-detail/vendeur-detail.component';
+import { AddTerrainComponent } from './Components/add-terrain/add-terrain.component';
+import { AddActeComponent } from './Components/add-acte/add-acte.component';
+import { TerrainDetailComponent } from './Components/terrain-detail/terrain-detail.component';
 
 
 
@@ -45,6 +51,13 @@ import { AddAcheteurComponent } from './Components/add-acheteur/add-acheteur.com
     TerrainComponent,
     ActeComponent,
     AddAcheteurComponent,
+    AcheteurDetailComponent,
+    AddVendeurComponent,
+    VendeurDetailComponent,
+    AddTerrainComponent,
+    AddActeComponent,
+    TerrainDetailComponent
+    
    
   ],
   imports: [

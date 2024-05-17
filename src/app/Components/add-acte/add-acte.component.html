@@ -1,0 +1,161 @@
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="acteForm" (ngSubmit)="addActe()">
+        <div class="form-group p-2 mb-3">
+          <label for="">Date transaction</label>
+          <input type="date" class="form-control " formControlName="date_transaction">
+          <span
+          *ngIf="acteForm.controls['date_transaction'].invalid && (acteForm.controls['date_transaction'].dirty || acteForm.controls['date_transaction'].touched)">
+          <span class="text-danger" *ngIf="acteForm.controls?.['date_transaction']?.errors?.['required']">Ce champ est obligatoire
+          </span>
+        </span>
+  
+        <span *ngIf="acteForm.controls['date_transaction'].valid">
+          <span class="text-success" >Date transaction validé</span>
+        </span>
+  
+        </div>
+        <div class="form-group p-2 mb-3">
+          <label for="">Montant</label>
+          <input type="number" class="form-control " formControlName="montant">
+          <span
+          *ngIf="acteForm.controls['montant'].invalid && (acteForm.controls['montant'].dirty || acteForm.controls['montant'].touched)">
+          <span class="text-danger" *ngIf="acteForm.controls?.['montant']?.errors?.['required']">Ce champ est obligatoire
+          </span>
+        </span>
+  
+        <span *ngIf="acteForm.controls['montant'].valid">
+          <span class="text-success" >montant validé</span>
+        </span>
+  
+        </div>
+
+        <div class="form-group p-2 mb-3">
+            <label for="">Nom temoin</label>
+            <input type="text" class="form-control " formControlName="nom_temoin">
+            <span
+            *ngIf="acteForm.controls['nom_temoin'].invalid && (acteForm.controls['nom_temoin'].dirty || acteForm.controls['nom_temoin'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['nom_temoin']?.errors?.['required']">Ce champ est obligatoire
+            </span>
+          </span>
+    
+          <span *ngIf="acteForm.controls['nom_temoin'].valid">
+            <span class="text-success" >nom temoin validé</span>
+          </span>
+    
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">NNI temoin</label>
+            <input type="number" class="form-control "formControlName="NNI_temoin">
+            <span
+            *ngIf="acteForm.controls['NNI_temoin'].invalid && (acteForm.controls['NNI_temoin'].dirty || acteForm.controls['NNI_temoin'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['NNI_temoin']?.errors?.['maxlength']">NNI ne depasse pas 10 chiffres
+            </span>
+          </span>
+    
+          <span *ngIf="acteForm.controls['NNI_temoin'].valid">
+            <span class="text-success" >NNI temoin validé</span>
+          </span>
+          
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">Nom notaire</label>
+            <input type="text" class="form-control "formControlName="nom_notaire">
+            <span
+            *ngIf="acteForm.controls['nom_notaire'].invalid && (acteForm.controls['nom_notaire'].dirty || acteForm.controls['nom_notaire'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['nom_notaire']?.errors?.['required']">Ce champ est obligatoire
+            </span>
+          </span>
+    
+          <span *ngIf="acteForm.controls['nom_notaire'].valid">
+            <span class="text-success" >nom notaire validé</span>
+          </span>
+          
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">NNI notaire</label>
+            <input type="number" class="form-control "formControlName="NNI_notaire">
+            <span
+            *ngIf="acteForm.controls['NNI_notaire'].invalid && (acteForm.controls['NNI_notaire'].dirty || acteForm.controls['NNI_notaire'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['NNI_notaire']?.errors?.['maxlength']">NNI ne depasse pas 10 chiffres
+            </span>
+          </span>
+    
+          <span *ngIf="acteForm.controls['NNI_notaire'].valid">
+            <span class="text-success" >NNI notaire validé</span>
+          </span>
+          
+          </div>
+
+        <div class="form-group p-2 mb-3">
+          <label for="">Frais notaire</label>
+          <input type="number" class="form-control " formControlName="frais_notaire">
+          <span
+          *ngIf="acteForm.controls['frais_notaire'].invalid && (acteForm.controls['frais_notaire'].dirty || acteForm.controls['frais_notaire'].touched)">
+          <span class="text-danger" *ngIf="acteForm.controls?.['prix']?.errors?.['required']">Ce champ est obligatoire
+          </span>
+        </span>
+        
+        <span *ngIf="acteForm.controls['frais_notaire'].valid">
+          <span class="text-success" >frais notaire validé</span>
+        </span>
+  
+        </div>
+       
+        <div class="form-group p-2 mb-3">
+            <label for="">Id acheteur</label>
+            <!-- <input type="number" class="form-control " formControlName="id_acheteur"> -->
+            <select class="form-select" aria-label="Default select example">
+              <!-- <option selected>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option> -->
+              <option></option>
+            </select>
+            <span
+            *ngIf="acteForm.controls['id_acheteur'].invalid && (acteForm.controls['id_acheteur'].dirty || acteForm.controls['id_acheteur'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['id_acheteur']?.errors?.['required']">Ce champ est obligatoire
+            </span>
+          </span>
+          <span *ngIf="acteForm.controls['id_acheteur'].valid">
+            <span class="text-success" >id_acheteur validé</span>
+          </span>
+    
+          </div>
+
+          <div class="form-group p-2 mb-3">
+            <label for="">Id vendeur</label>
+            <input type="number" class="form-control " formControlName="id_vendeur">
+            <span
+            *ngIf="acteForm.controls['id_vendeur'].invalid && (acteForm.controls['id_vendeur'].dirty || acteForm.controls['id_vendeur'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['id_vendeur']?.errors?.['required']">Ce champ est obligatoire
+            </span>
+          </span>
+          <span *ngIf="acteForm.controls['id_vendeur'].valid">
+            <span class="text-success" >id vendeur validé</span>
+          </span>
+    
+          </div>
+
+          <div class="form-group p-2 mb-3">
+            <label for="">Id terrain</label>
+            <input type="number" class="form-control " formControlName="id_terrain">
+            <span
+            *ngIf="acteForm.controls['id_terrain'].invalid && (acteForm.controls['id_terrain'].dirty || acteForm.controls['id_terrain'].touched)">
+            <span class="text-danger" *ngIf="acteForm.controls?.['id_terrain']?.errors?.['required']">Ce champ est obligatoire
+            </span>
+          </span>
+          <span *ngIf="acteForm.controls['id_terrain'].valid">
+            <span class="text-success" >id terrain validé</span>
+          </span>
+    
+          </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn but" (click)="retourActe()"> Annuler</button>
+          <button class="btn btn-primary p-2"> Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

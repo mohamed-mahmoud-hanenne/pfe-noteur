@@ -8,7 +8,7 @@
 						<h2>Gérer <b>Actes</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
+						<a routerLink="/add-acte" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						
 					</div>
                 </div>
@@ -23,15 +23,16 @@
 							</span>
 						</th>
                         <th>Id</th>
-                        <th>Identifiant terrain</th>
-                        <th>Localisation</th>
-						<th>Superficie</th>
-                        <th>Description</th>
-                        <th>Proprietaire</th>
-                        <th>Coordonnees gps</th>
-                        <th>Prix</th>
-                        <th>Statut juridique</th>
-                        <th>Date acquisition</th>
+                        <th>Date transaction</th>
+                        <th>Montant</th>
+						<th>Nom temoin</th>
+                        <th>NNI temoin</th>
+                        <th>Nom notaire</th>
+                        <th>NNI notaire</th>
+                        <th>Frais notaire</th>
+                        <th>Id acheteur</th>
+                        <th>Id vendeur</th>
+						<th>Id terrain</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -56,7 +57,7 @@
                         <td>{{acte.id_terrain}}</td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" (click)="deleteActe(acte.id,i)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
                  

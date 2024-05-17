@@ -1,0 +1,140 @@
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="terrainFormUpdate" (ngSubmit)="updateTerrain()">
+        <div class="form-group p-2 mb-3">
+          <label for="">Identifiant terrain</label>
+          <input type="text" class="form-control " formControlName="Identifiant_terrain">
+          <span
+          *ngIf="terrainFormUpdate.controls['Identifiant_terrain'].invalid && (terrainFormUpdate.controls['Identifiant_terrain'].dirty || terrainFormUpdate.controls['Identifiant_terrain'].touched)">
+          <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['Identifiant_terrain']?.errors?.['required']">required
+          </span>
+        </span>
+  
+        <span *ngIf="terrainFormUpdate.controls['Identifiant_terrain'].valid">
+          <span class="text-success" >Identifiant terrain validé</span>
+        </span>
+  
+        </div>
+        <div class="form-group p-2 mb-3">
+          <label for="">Localisation</label>
+          <input type="text" class="form-control " formControlName="localisation">
+          <span
+          *ngIf="terrainFormUpdate.controls['localisation'].invalid && (terrainFormUpdate.controls['localisation'].dirty || terrainFormUpdate.controls['localisation'].touched)">
+          <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['localisation']?.errors?.['required']">required
+          </span>
+        </span>
+  
+        <span *ngIf="terrainFormUpdate.controls['localisation'].valid">
+          <span class="text-success" >Localisation validé</span>
+        </span>
+  
+        </div>
+
+        <div class="form-group p-2 mb-3">
+            <label for="">Superficie</label>
+            <input type="text" class="form-control " formControlName="superficie">
+            <span
+            *ngIf="terrainFormUpdate.controls['superficie'].invalid && (terrainFormUpdate.controls['superficie'].dirty || terrainFormUpdate.controls['superficie'].touched)">
+            <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['superficie']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="terrainFormUpdate.controls['superficie'].valid">
+            <span class="text-success" >superficie validé</span>
+          </span>
+    
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">Description</label>
+            <input type="text" class="form-control "formControlName="description">
+            <span
+            *ngIf="terrainFormUpdate.controls['description'].invalid && (terrainFormUpdate.controls['description'].dirty || terrainFormUpdate.controls['description'].touched)">
+            <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['description']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="terrainFormUpdate.controls['description'].valid">
+            <span class="text-success" >description validé</span>
+          </span>
+          
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">Proprietaire</label>
+            <input type="text" class="form-control "formControlName="proprietaire">
+            <span
+            *ngIf="terrainFormUpdate.controls['proprietaire'].invalid && (terrainFormUpdate.controls['proprietaire'].dirty || terrainFormUpdate.controls['proprietaire'].touched)">
+            <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['proprietaire']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="terrainFormUpdate.controls['proprietaire'].valid">
+            <span class="text-success" >Proprietaire validé</span>
+          </span>
+          
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">Coordonnees gps</label>
+            <input type="text" class="form-control "formControlName="coordonnees_gps">
+            <span
+            *ngIf="terrainFormUpdate.controls['coordonnees_gps'].invalid && (terrainFormUpdate.controls['coordonnees_gps'].dirty || terrainFormUpdate.controls['coordonnees_gps'].touched)">
+            <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['coordonnees_gps']?.errors?.['required']">coordonnees_gps incorrect
+            </span>
+          </span>
+    
+          <span *ngIf="terrainFormUpdate.controls['coordonnees_gps'].valid">
+            <span class="text-success" >Coordonnees gps validé</span>
+          </span>
+          
+          </div>
+
+        <div class="form-group p-2 mb-3">
+          <label for="">Prix</label>
+          <input type="number" class="form-control " formControlName="prix">
+          <span
+          *ngIf="terrainFormUpdate.controls['prix'].invalid && (terrainFormUpdate.controls['prix'].dirty || terrainFormUpdate.controls['prix'].touched)">
+          <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['prix']?.errors?.['required']">prix incorrect
+          </span>
+        </span>
+        
+        <span *ngIf="terrainFormUpdate.controls['prix'].valid">
+          <span class="text-success" >prix validé</span>
+        </span>
+  
+        </div>
+       
+        <div class="form-group p-2 mb-3">
+            <label for="">Statut juridique</label>
+            <input type="text" class="form-control " formControlName="statut_juridique">
+            <span
+            *ngIf="terrainFormUpdate.controls['statut_juridique'].invalid && (terrainFormUpdate.controls['statut_juridique'].dirty || terrainFormUpdate.controls['statut_juridique'].touched)">
+            <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['statut_juridique']?.errors?.['required']">statut juridique incorrect
+            </span>
+          </span>
+          <span *ngIf="terrainFormUpdate.controls['statut_juridique'].valid">
+            <span class="text-success" >Statut juridique validé</span>
+          </span>
+    
+          </div>
+
+          <div class="form-group p-2 mb-3">
+            <label for="">Date acquisition</label>
+            <input type="date" class="form-control " formControlName="date_acquisition">
+            <span
+            *ngIf="terrainFormUpdate.controls['date_acquisition'].invalid && (terrainFormUpdate.controls['date_acquisition'].dirty || terrainFormUpdate.controls['date_acquisition'].touched)">
+            <span class="text-danger" *ngIf="terrainFormUpdate.controls?.['date_acquisition']?.errors?.['required']">statut juridique incorrect
+            </span>
+          </span>
+          <span *ngIf="terrainFormUpdate.controls['date_acquisition'].valid">
+            <span class="text-success" >Date acquisition validé</span>
+          </span>
+    
+          </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn but" (click)="retourTerrain()"> Annuler</button>
+          <button class="btn btn-primary p-2"> Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -14,7 +14,14 @@ export class AcheteursComponent implements OnInit{
   ngOnInit(): void {
     this.noteurservice.getAcheteurs().subscribe(a=>{
       this.acheteurs = a;
-      console.log(this.acheteurs)
+      // console.log(this.acheteurs)
     });
+  }
+
+  delete(id:number,i:any){
+    // console.log(id);
+    this.noteurservice.deleteAcheteur(id).subscribe(res=>{
+      this.acheteurs.splice(i,1)
+    })
   }
 }

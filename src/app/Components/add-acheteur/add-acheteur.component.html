@@ -47,14 +47,14 @@
 
           <div class="form-group p-2 mb-3">
             <label for="">Adress</label>
-            <input type="text" class="form-control "formControlName="adress">
+            <input type="text" class="form-control "formControlName="adresse">
             <span
-            *ngIf="acheteurForm.controls['adress'].invalid && (acheteurForm.controls['adress'].dirty || acheteurForm.controls['adress'].touched)">
-            <span class="text-danger" *ngIf="acheteurForm.controls?.['adress']?.errors?.['required']">required
+            *ngIf="acheteurForm.controls['adresse'].invalid && (acheteurForm.controls['adresse'].dirty || acheteurForm.controls['adresse'].touched)">
+            <span class="text-danger" *ngIf="acheteurForm.controls?.['adresse']?.errors?.['required']">required
             </span>
           </span>
     
-          <span *ngIf="acheteurForm.controls['adress'].valid">
+          <span *ngIf="acheteurForm.controls['adresse'].valid">
             <span class="text-success" >Adress validé</span>
           </span>
           
@@ -76,14 +76,14 @@
 
         <div class="form-group p-2 mb-3">
           <label for="">Telephone</label>
-          <input type="tel" class="form-control " formControlName="phone">
+          <input type="tel" class="form-control " formControlName="numero_tel">
           <span
-          *ngIf="acheteurForm.controls['phone'].invalid && (acheteurForm.controls['phone'].dirty || acheteurForm.controls['phone'].touched)">
-          <span class="text-danger" *ngIf="acheteurForm.controls?.['phone']?.errors?.['maxlength']">numero incorrect
+          *ngIf="acheteurForm.controls['numero_tel'].invalid && (acheteurForm.controls['numero_tel'].dirty || acheteurForm.controls['numero_tel'].touched)">
+          <span class="text-danger" *ngIf="acheteurForm.controls?.['numero_tel']?.errors?.['maxlength']">numero incorrect
           </span>
         </span>
         
-        <span *ngIf="acheteurForm.controls['phone'].valid">
+        <span *ngIf="acheteurForm.controls['numero_tel'].valid">
           <span class="text-success" >Numéro telephone validé</span>
         </span>
   

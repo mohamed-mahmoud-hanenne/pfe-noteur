@@ -28,17 +28,22 @@ export class AddAcheteurComponent implements OnInit{
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       date_naissance: ['', Validators.required],
-      adress: ['', Validators.required],
+      adresse: ['', Validators.required],
       NNI: ['', [Validators.required, Validators.maxLength(10)]],
-      phone: ['', [Validators.required, Validators.maxLength(8)]],
+      numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
       email: ['', Validators.email],
+      
     });
   }
   addAcheteur(){
     this.noteurservice.addAcheteur(this.acheteurForm.value).subscribe(()=>{
-      console.log("Acheteur ajouté avec success")
+      // console.log("Acheteur ajouté avec success")
       this.ngZone.run(()=>this.router.navigateByUrl('/acheteurs'))
     })
   }
-  retourAcheteur(){}
+  retourAcheteur(){
+    this.ngZone.run(()=>this.router.navigateByUrl('/acheteurs'))
+  }
+
+  
 }

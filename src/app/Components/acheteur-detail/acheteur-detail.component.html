@@ -1,0 +1,113 @@
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="updateForm" (ngSubmit)="updateAcheteur()">
+        <div class="form-group p-2 mb-3">
+          <label for="">Nom</label>
+          <input type="text" class="form-control " formControlName="nom">
+          <span
+          *ngIf="updateForm.controls['nom'].invalid && (updateForm.controls['nom'].dirty || updateForm.controls['nom'].touched)">
+          <span class="text-danger" *ngIf="updateForm.controls?.['nom']?.errors?.['required']">required
+          </span>
+        </span>
+  
+        <span *ngIf="updateForm.controls['nom'].valid">
+          <span class="text-success" >Nom validé</span>
+        </span>
+  
+        </div>
+        <div class="form-group p-2 mb-3">
+          <label for="">Prenom</label>
+          <input type="text" class="form-control " formControlName="prenom">
+          <span
+          *ngIf="updateForm.controls['prenom'].invalid && (updateForm.controls['prenom'].dirty || updateForm.controls['prenom'].touched)">
+          <span class="text-danger" *ngIf="updateForm.controls?.['prenom']?.errors?.['required']">required
+          </span>
+        </span>
+  
+        <span *ngIf="updateForm.controls['prenom'].valid">
+          <span class="text-success" >Prenom validé</span>
+        </span>
+  
+        </div>
+
+        <div class="form-group p-2 mb-3">
+            <label for="">Date de naissance</label>
+            <input type="date" class="form-control " formControlName="date_naissance">
+            <span
+            *ngIf="updateForm.controls['date_naissance'].invalid && (updateForm.controls['date_naissance'].dirty || updateForm.controls['date_naissance'].touched)">
+            <span class="text-danger" *ngIf="updateForm.controls?.['date_naissance']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="updateForm.controls['date_naissance'].valid">
+            <span class="text-success" >Date de naissance validé</span>
+          </span>
+    
+          </div>
+
+          <div class="form-group p-2 mb-3">
+            <label for="">Adress</label>
+            <input type="text" class="form-control "formControlName="adresse">
+            <span
+            *ngIf="updateForm.controls['adresse'].invalid && (updateForm.controls['adresse'].dirty || updateForm.controls['adresse'].touched)">
+            <span class="text-danger" *ngIf="updateForm.controls?.['adresse']?.errors?.['required']">required
+            </span>
+          </span>
+    
+          <span *ngIf="updateForm.controls['adresse'].valid">
+            <span class="text-success" >Adress validé</span>
+          </span>
+          
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="">NNI</label>
+            <input type="text" class="form-control "formControlName="NNI">
+            <span
+            *ngIf="updateForm.controls['NNI'].invalid && (updateForm.controls['NNI'].dirty || updateForm.controls['NNI'].touched)">
+            <span class="text-danger" *ngIf="updateForm.controls?.['NNI']?.errors?.['maxlength']">NNI incorrect
+            </span>
+          </span>
+    
+          <span *ngIf="updateForm.controls['NNI'].valid">
+            <span class="text-success" >NNI validé</span>
+          </span>
+          
+          </div>
+
+        <div class="form-group p-2 mb-3">
+          <label for="">Telephone</label>
+          <input type="tel" class="form-control " formControlName="numero_tel">
+          <span
+          *ngIf="updateForm.controls['numero_tel'].invalid && (updateForm.controls['numero_tel'].dirty || updateForm.controls['numero_tel'].touched)">
+          <span class="text-danger" *ngIf="updateForm.controls?.['numero_tel']?.errors?.['maxlength']">numero incorrect
+          </span>
+        </span>
+        
+        <span *ngIf="updateForm.controls['numero_tel'].valid">
+          <span class="text-success" >Numéro telephone validé</span>
+        </span>
+  
+        </div>
+       
+        <div class="form-group p-2 mb-3">
+            <label for="">Email</label>
+            <input type="email" class="form-control " formControlName="email">
+            <span
+            *ngIf="updateForm.controls['email'].invalid && (updateForm.controls['email'].dirty || updateForm.controls['email'].touched)">
+            <span class="text-danger" *ngIf="updateForm.controls?.['email']?.errors?.['email']">email incorrect
+            </span>
+          </span>
+          <span *ngIf="updateForm.controls['email'].valid && (updateForm.controls['email'].dirty || updateForm.controls['email'].touched)">
+            <span class="text-success" >Email validé</span>
+          </span>
+    
+          </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn but" (click)="retourAcheteur()"> Annuler</button>
+          <button class="btn btn-primary p-2" [disabled]="updateForm.invalid"> Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

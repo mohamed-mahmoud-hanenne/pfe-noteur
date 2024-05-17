@@ -20,4 +20,10 @@ export class TerrainComponent implements OnInit{
     });
   }
 
+  deleteTerrain(id:number,i:any){
+    this.noteurservice.deleteterrain(id).subscribe(res=>{
+      this.terrains.splice(i,1);
+    })
+  }
+
 }
