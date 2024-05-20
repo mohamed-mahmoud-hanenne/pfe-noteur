@@ -1,6 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Acheteur } from 'src/app/Models/acheteur';
+import { Terrain } from 'src/app/Models/terrain';
 import { NoteurService } from 'src/app/service/noteur.service';
 
 @Component({
@@ -11,6 +13,9 @@ import { NoteurService } from 'src/app/service/noteur.service';
 export class AddActeComponent implements OnInit{
 
   acteForm :FormGroup = new FormGroup({});
+  acheteursinacte : Acheteur[] = [];
+  vendeursinacte : Acheteur[] = [];
+  terrainsinacte : Terrain[] = [];
 
   constructor(
     private fb:FormBuilder,
@@ -19,8 +24,19 @@ export class AddActeComponent implements OnInit{
     private router:Router
   ){}
 
+
+
   ngOnInit(): void {
     this.initialise();
+    this.noteurservice.getAcheteurs().subscribe(ach=>{
+      this.acheteursinacte = ach;
+    });
+    this.noteurservice.getVendeurs().subscribe(vend=>{
+      this.vendeursinacte = vend;
+    });
+    this.noteurservice.getTerrains().subscribe(terr=>{
+      this.terrainsinacte = terr;
+    });
   }
 
   initialise(){

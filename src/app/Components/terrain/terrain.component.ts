@@ -8,16 +8,32 @@ import { Terrain } from 'src/app/Models/terrain';
   styleUrls: ['./terrain.component.scss']
 })
 export class TerrainComponent implements OnInit{
-
+  searchText: string = '';
   terrains: Terrain[] = [];
+  filtredTerrains: Terrain[] = [];
+  noResultat:boolean = false;
+
 
   constructor(private noteurservice: NoteurService){}
 
   ngOnInit(): void {
     this.noteurservice.getTerrains().subscribe(t=>{
       this.terrains = t;
-  
-    });
+      this.filtredTerrains = t;
+    },
+    error =>{
+      console.log("Il y'a un erreur: ",error)
+    }
+  );
+  }
+
+  search(): void{
+    const searchValue = this.searchText.toLowerCase();
+    this.filtredTerrains = this.terrains.filter(terrain=>
+      terrain.Identifiant_terrain.toLowerCase().includes(searchValue)
+    );
+    this.searchText = '';
+    this.noResultat = this.filtredTerrains.length === 0;
   }
 
   deleteTerrain(id:number,i:any){

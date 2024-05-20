@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Acheteur } from '../Models/acheteur';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Acte } from '../Models/acte';
 import { Terrain } from '../Models/terrain';
 
@@ -14,9 +14,22 @@ export class NoteurService {
  httpHeaders = new HttpHeaders().set('Content-Type','application/json')
   constructor(private http: HttpClient) { }
 
-  getAcheteurs():Observable<any> {
-    return this.http.get(`${this.api}/acheteur`);
+  private handleError(error:HttpErrorResponse){
+    console.error('Erreur:',error.error.message);
+    return throwError('Ressayer');
+  }
+
+  getAcheteurs():Observable<Acheteur[]> {
+    return this.http.get<Acheteur[]>(`${this.api}/acheteur`).pipe(
+      catchError(this.handleError)
+    );
 }
+
+// getAcheteurs(): Observable<Acheteur[]> {
+//   return this.http.get<Acheteur[]>(this.apiUrl).pipe(
+//     catchError(this.handleError)
+//   );
+// }
 
   getAdmin():Observable<any>{
     return this.http.get(`${this.api}/auth`);
@@ -83,7 +96,10 @@ export class NoteurService {
 
   deleteAcheteur(id:number):Observable<any>{
     let url = `${this.api}/deleteacheteur/${id}`;
-    return this.http.delete(url,{headers:this.httpHeaders});
+    return this.http.delete(url,{headers:this.httpHeaders}).pipe(
+      catchError(this.handleError)
+    );
+    
   }
 
   deleteVendeur(id:number):Observable<any>{

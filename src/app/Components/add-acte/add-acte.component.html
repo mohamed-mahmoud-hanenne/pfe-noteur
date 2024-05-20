@@ -49,7 +49,7 @@
             <input type="number" class="form-control "formControlName="NNI_temoin">
             <span
             *ngIf="acteForm.controls['NNI_temoin'].invalid && (acteForm.controls['NNI_temoin'].dirty || acteForm.controls['NNI_temoin'].touched)">
-            <span class="text-danger" *ngIf="acteForm.controls?.['NNI_temoin']?.errors?.['maxlength']">NNI ne depasse pas 10 chiffres
+            <span class="text-danger" *ngIf="acteForm.controls?.['NNI_temoin']?.errors?.['maxLength']">NNI ne depasse pas 10 chiffres
             </span>
           </span>
     
@@ -77,7 +77,7 @@
             <input type="number" class="form-control "formControlName="NNI_notaire">
             <span
             *ngIf="acteForm.controls['NNI_notaire'].invalid && (acteForm.controls['NNI_notaire'].dirty || acteForm.controls['NNI_notaire'].touched)">
-            <span class="text-danger" *ngIf="acteForm.controls?.['NNI_notaire']?.errors?.['maxlength']">NNI ne depasse pas 10 chiffres
+            <span class="text-danger" *ngIf="acteForm.controls?.['NNI_notaire']?.errors?.['maxLength']">NNI ne depasse pas 10 chiffres
             </span>
           </span>
     
@@ -105,12 +105,9 @@
         <div class="form-group p-2 mb-3">
             <label for="">Id acheteur</label>
             <!-- <input type="number" class="form-control " formControlName="id_acheteur"> -->
-            <select class="form-select" aria-label="Default select example">
-              <!-- <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option> -->
-              <option></option>
+            <select class="form-select" aria-label="Default select example" formControlName="id_acheteur">
+              <!-- <option selected>Choisir l'acheteur</option> -->
+              <option *ngFor="let acheteur of acheteursinacte" [ngValue]="acheteur.id">{{ acheteur.id }}</option>
             </select>
             <span
             *ngIf="acteForm.controls['id_acheteur'].invalid && (acteForm.controls['id_acheteur'].dirty || acteForm.controls['id_acheteur'].touched)">
@@ -125,7 +122,11 @@
 
           <div class="form-group p-2 mb-3">
             <label for="">Id vendeur</label>
-            <input type="number" class="form-control " formControlName="id_vendeur">
+            <!-- <input type="number" class="form-control " formControlName="id_vendeur"> -->
+            <select class="form-select" aria-label="Default select example" formControlName="id_vendeur">
+              <!-- <option selected>Choisir le vendeur</option> -->
+              <option *ngFor="let vendeur of vendeursinacte" [ngValue]="vendeur.id">{{ vendeur.id }}</option>
+            </select>
             <span
             *ngIf="acteForm.controls['id_vendeur'].invalid && (acteForm.controls['id_vendeur'].dirty || acteForm.controls['id_vendeur'].touched)">
             <span class="text-danger" *ngIf="acteForm.controls?.['id_vendeur']?.errors?.['required']">Ce champ est obligatoire
@@ -139,7 +140,11 @@
 
           <div class="form-group p-2 mb-3">
             <label for="">Id terrain</label>
-            <input type="number" class="form-control " formControlName="id_terrain">
+            <!-- <input type="number" class="form-control " formControlName="id_terrain"> -->
+            <select class="form-select" aria-label="Default select example" formControlName="id_terrain">
+              <!-- <option selected>Choisir le terrain</option> -->
+              <option *ngFor="let terrain of terrainsinacte" [ngValue]="terrain.id">{{ terrain.id }}</option>
+            </select>
             <span
             *ngIf="acteForm.controls['id_terrain'].invalid && (acteForm.controls['id_terrain'].dirty || acteForm.controls['id_terrain'].touched)">
             <span class="text-danger" *ngIf="acteForm.controls?.['id_terrain']?.errors?.['required']">Ce champ est obligatoire

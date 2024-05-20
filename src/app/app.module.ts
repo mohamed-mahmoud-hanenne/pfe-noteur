@@ -31,6 +31,7 @@ import { VendeurDetailComponent } from './Components/vendeur-detail/vendeur-deta
 import { AddTerrainComponent } from './Components/add-terrain/add-terrain.component';
 import { AddActeComponent } from './Components/add-acte/add-acte.component';
 import { TerrainDetailComponent } from './Components/terrain-detail/terrain-detail.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -70,7 +71,8 @@ import { TerrainDetailComponent } from './Components/terrain-detail/terrain-deta
     MatFormFieldModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
 
   ],
   providers: [],
