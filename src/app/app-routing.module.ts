@@ -20,13 +20,13 @@ import { TerrainDetailComponent } from './Components/terrain-detail/terrain-deta
 import { AddActeComponent } from './Components/add-acte/add-acte.component';
 
 const routes: Routes = [
-  // {path:'',redirectTo:'/home', pathMatch:'full'},
-  // {path:'home',component:HomeComponent,title:'Home'},
-  // {path:'services',component:SericesComponent,title:'Services'},
-  // {path:'about',component:AboutComponent,title:'About'},
-  // {path:'contact',component:ContactComponent,title:'Contact'},
-  // {path:'signin',component:SigninComponent,title:'Sign In'},
-  // {path:'login',component:LoginComponent,title:'Login'},
+  {path:'',redirectTo:'/home', pathMatch:'full'},
+  {path:'home',component:HomeComponent,title:'Home'},
+  {path:'services',component:SericesComponent,title:'Services'},
+  {path:'about',component:AboutComponent,title:'About'},
+  {path:'contact',component:ContactComponent,title:'Contact'},
+  {path:'signin',component:SigninComponent,title:'Sign In'},
+  {path:'login',component:LoginComponent,title:'Login'},
 
   {path:'dashbord',component:DashbordAdminComponent,title:'Dashbord'},
   {path:'acheteurs',component:AcheteursComponent,title:'Acheteurs'},

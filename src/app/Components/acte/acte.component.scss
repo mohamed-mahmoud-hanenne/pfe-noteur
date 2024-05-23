@@ -10,6 +10,14 @@
     margin-top: -0.5;
 }
 
+.delete ,.download ,.edit:hover{
+    cursor: pointer;
+}
+
+
+.icons{
+    display: inline-block;
+}
 
 body {
     color: #566787;
