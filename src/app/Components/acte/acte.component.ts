@@ -141,11 +141,12 @@ export class ActeComponent implements OnInit{
 
    
     const qrCodeData = `
-    Acte ID: ${acte.id}
     Notaire: ${acte.nom_notaire}, NNI: ${acte.NNI_notaire}
     Acheteur: ${acheteur.nom} ${acheteur.prenom}, NNI: ${acheteur.NNI}
     Vendeur: ${vendeur.nom} ${vendeur.prenom}, NNI: ${vendeur.NNI}
     Terrain ID: ${terrain.Identifiant_terrain}
+    Proprietaire: ${terrain.proprietaire}
+    Localisation: ${terrain.localisation}
     Date de transaction: ${acte.date_transaction}
     Montant: ${acte.montant} MRO
     Frais de notaire: ${acte.frais_notaire} MRO
@@ -154,9 +155,10 @@ export class ActeComponent implements OnInit{
     
  
        const qrCodeUrl = await QRCode.toDataURL(qrCodeData);
-    
-       // Ajouter le QR code au PDF
-       doc.addImage(qrCodeUrl, 'JPEG', 80, 250, 50, 50);
+
+
+       doc.text("Scanner pour plus d'informaations", 105, 220, { align: 'center' });
+       doc.addImage(qrCodeUrl, 'JPEG', 80, 230, 50, 50);
 
     doc.save(`acte_${acte.id}.pdf`);
   }
