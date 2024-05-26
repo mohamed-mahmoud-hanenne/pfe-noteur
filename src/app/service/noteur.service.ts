@@ -4,6 +4,8 @@ import { Acheteur } from '../Models/acheteur';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Acte } from '../Models/acte';
 import { Terrain } from '../Models/terrain';
+import { UserLogin } from '../Models/user-login';
+import { Usersignup } from '../Models/usersignup';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ export class NoteurService {
   
  private api = 'http://127.0.0.1:8000/api';
  httpHeaders = new HttpHeaders().set('Content-Type','application/json')
+
   constructor(private http: HttpClient) { }
 
   private handleError(error:HttpErrorResponse){
@@ -25,15 +28,7 @@ export class NoteurService {
     );
 }
 
-// getAcheteurs(): Observable<Acheteur[]> {
-//   return this.http.get<Acheteur[]>(this.apiUrl).pipe(
-//     catchError(this.handleError)
-//   );
-// }
 
-  getAdmin():Observable<any>{
-    return this.http.get(`${this.api}/auth`);
-  }
 
   getVendeurs():Observable<any>{
     return this.http.get(`${this.api}/vendeur`);
@@ -116,4 +111,13 @@ export class NoteurService {
     let url = `${this.api}/deleteacte/${id}`;
     return this.http.delete(url,{headers:this.httpHeaders});
   }
+
+ login(userlogin:UserLogin):Observable<any>{
+  return this.http.post(`${this.api}/login`,userlogin);
+ }
+
+ register(usersignup:Usersignup):Observable<any>{
+  return this.http.post(`${this.api}/register`,usersignup)
+ }
+
 }

@@ -103,11 +103,11 @@
         </div>
        
         <div class="form-group p-2 mb-3">
-            <label for="">Id acheteur</label>
+            <label for="">Nom acheteur</label>
             <!-- <input type="number" class="form-control " formControlName="id_acheteur"> -->
             <select class="form-select" aria-label="Default select example" formControlName="id_acheteur">
               <!-- <option selected>Choisir l'acheteur</option> -->
-              <option *ngFor="let acheteur of acheteursinacte" [ngValue]="acheteur.id">{{ acheteur.id }}</option>
+              <option *ngFor="let acheteur of acheteursinacte" [ngValue]="acheteur.id">{{ acheteur.nom }}</option>
             </select>
             <span
             *ngIf="acteForm.controls['id_acheteur'].invalid && (acteForm.controls['id_acheteur'].dirty || acteForm.controls['id_acheteur'].touched)">
@@ -115,17 +115,17 @@
             </span>
           </span>
           <span *ngIf="acteForm.controls['id_acheteur'].valid">
-            <span class="text-success" >id_acheteur validé</span>
+            <span class="text-success" >Nom acheteur validé</span>
           </span>
     
           </div>
 
           <div class="form-group p-2 mb-3">
-            <label for="">Id vendeur</label>
+            <label for="">Nom vendeur</label>
             <!-- <input type="number" class="form-control " formControlName="id_vendeur"> -->
             <select class="form-select" aria-label="Default select example" formControlName="id_vendeur">
               <!-- <option selected>Choisir le vendeur</option> -->
-              <option *ngFor="let vendeur of vendeursinacte" [ngValue]="vendeur.id">{{ vendeur.id }}</option>
+              <option *ngFor="let vendeur of vendeursinacte" [ngValue]="vendeur.id">{{ vendeur.nom }}</option>
             </select>
             <span
             *ngIf="acteForm.controls['id_vendeur'].invalid && (acteForm.controls['id_vendeur'].dirty || acteForm.controls['id_vendeur'].touched)">
@@ -133,17 +133,17 @@
             </span>
           </span>
           <span *ngIf="acteForm.controls['id_vendeur'].valid">
-            <span class="text-success" >id vendeur validé</span>
+            <span class="text-success" >Nom vendeur validé</span>
           </span>
     
           </div>
 
           <div class="form-group p-2 mb-3">
-            <label for="">Id terrain</label>
+            <label for="">Identifiant terrain</label>
             <!-- <input type="number" class="form-control " formControlName="id_terrain"> -->
             <select class="form-select" aria-label="Default select example" formControlName="id_terrain">
               <!-- <option selected>Choisir le terrain</option> -->
-              <option *ngFor="let terrain of terrainsinacte" [ngValue]="terrain.id">{{ terrain.id }}</option>
+              <option *ngFor="let terrain of terrainsinacte" [ngValue]="terrain.id">{{ terrain.Identifiant_terrain }}</option>
             </select>
             <span
             *ngIf="acteForm.controls['id_terrain'].invalid && (acteForm.controls['id_terrain'].dirty || acteForm.controls['id_terrain'].touched)">
@@ -151,7 +151,7 @@
             </span>
           </span>
           <span *ngIf="acteForm.controls['id_terrain'].valid">
-            <span class="text-success" >id terrain validé</span>
+            <span class="text-success" >Identifiant terrain validé</span>
           </span>
     
           </div>
