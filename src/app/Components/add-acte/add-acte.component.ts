@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Acheteur } from 'src/app/Models/acheteur';
 import { Terrain } from 'src/app/Models/terrain';
 import { NoteurService } from 'src/app/service/noteur.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-acte',
@@ -44,7 +45,7 @@ export class AddActeComponent implements OnInit{
       date_transaction:['',Validators.required],
       montant:['',Validators.required],
       nom_temoin:['',Validators.required],
-      NNI_temoin:['',[Validators.required, Validators.maxLength(10)]],
+      NNI_temoin: ['', [Validators.required, Validators.maxLength(10)]],
       nom_notaire:['',Validators.required],
       NNI_notaire:['',[Validators.required, Validators.maxLength(10)]],
       frais_notaire:['',Validators.required],
@@ -54,11 +55,32 @@ export class AddActeComponent implements OnInit{
     });
   }
 
+  // addActe(){
+  //   this.noteurservice.addActe(this.acteForm.value).subscribe(()=>{
+  //     console.log("acte ajoute avec succes");
+  //     this.ngzone.run(()=>this.router.navigateByUrl('/acte'))
+  //   })
+  // }
+
   addActe(){
     this.noteurservice.addActe(this.acteForm.value).subscribe(()=>{
-      console.log("acte ajoute avec succes");
-      this.ngzone.run(()=>this.router.navigateByUrl('/acte'))
-    })
+      Swal.fire({
+        title: 'Success',
+        text: 'Acte ajouté avec success',
+        icon: 'success'
+      }).then(() => {
+        this.ngzone.run(()=>this.router.navigateByUrl('/acte'))
+      });
+    },
+    error => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Ajout a echoué!',
+        icon: 'error'
+      });
+    }
+      
+  )
   }
 
   retourActe(){

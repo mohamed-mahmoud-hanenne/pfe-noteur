@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NoteurService } from 'src/app/service/noteur.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-terrain',
@@ -41,11 +42,32 @@ export class AddTerrainComponent implements OnInit{
 
   }
 
+  // addTerrain(){
+  //   this.noteurservice.addTerrain(this.terrainForm.value).subscribe(()=>{
+  //     console.log("Terrain ajouté avec succés");
+  //     this.ngzone.run(()=>this.router.navigateByUrl('/terrain'));
+  //   });
+  // }
+
   addTerrain(){
     this.noteurservice.addTerrain(this.terrainForm.value).subscribe(()=>{
-      console.log("Terrain ajouté avec succés");
-      this.ngzone.run(()=>this.router.navigateByUrl('/terrain'));
-    });
+      Swal.fire({
+        title: 'Success',
+        text: 'Terrain ajouté avec success',
+        icon: 'success'
+      }).then(() => {
+        this.ngzone.run(()=>this.router.navigateByUrl('/terrain'))
+      });
+    },
+    error => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Ajout a echoué!',
+        icon: 'error'
+      });
+    }
+      
+  )
   }
 
 

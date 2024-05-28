@@ -39,7 +39,7 @@ export class SigninComponent implements OnInit{
           }).then(() => {
             this.router.navigate(['/login']);
           });
-          console.log(response)
+         
         },
         error => {
           Swal.fire({

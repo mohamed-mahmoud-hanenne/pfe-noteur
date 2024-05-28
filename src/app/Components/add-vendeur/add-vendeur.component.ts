@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NoteurService } from 'src/app/service/noteur.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-vendeur',
@@ -35,11 +36,32 @@ export class AddVendeurComponent implements OnInit{
     })
   }
 
+  // addVendeur(){
+  //   this.noteurservice.addVendeur(this.vendeurForm.value).subscribe(()=>{
+  //     console.log("Acheteur ajouté avec success");
+  //     this.ngZone.run(()=>this.router.navigateByUrl('/vendeurs'));
+  //   })
+  // }
+
   addVendeur(){
     this.noteurservice.addVendeur(this.vendeurForm.value).subscribe(()=>{
-      console.log("Acheteur ajouté avec success");
-      this.ngZone.run(()=>this.router.navigateByUrl('/vendeurs'));
-    })
+      Swal.fire({
+        title: 'Success',
+        text: 'Vendeur ajouté avec success',
+        icon: 'success'
+      }).then(() => {
+        this.ngZone.run(()=>this.router.navigateByUrl('/vendeurs'))
+      });
+    },
+    error => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Ajout a echoué!',
+        icon: 'error'
+      });
+    }
+      
+  )
   }
 
   retourAcheteur(){

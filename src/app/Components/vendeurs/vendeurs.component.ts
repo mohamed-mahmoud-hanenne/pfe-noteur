@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteurService } from 'src/app/service/noteur.service';
 import { Acheteur } from 'src/app/Models/acheteur';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vendeurs',
@@ -36,9 +37,40 @@ export class VendeursComponent implements OnInit{
   }
   
 
-  deleteVendeur(id:number,i:any){
-    this.noteurservice.deleteVendeur(id).subscribe(res=>{
-      this.vendeurs.splice(i,1)
-    })
+  // deleteVendeur(id:number,i:any){
+  //   this.noteurservice.deleteVendeur(id).subscribe(res=>{
+  //     this.vendeurs.splice(i,1)
+  //   })
+  // }
+
+  deleteVendeur(id: number, i: any): void {
+    Swal.fire({
+      title: "Etes-vous sûr?",
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Supprimer",
+      cancelButtonText:"Anuller"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.noteurservice.deleteVendeur(id).subscribe(res => {
+          this.vendeurs.splice(i, 1);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }, error => {
+          Swal.fire({
+            title: "Error!",
+            text: "There was an error deleting the file.",
+            icon: "error"
+          });
+          console.error('There was an error!', error);
+        });
+      }
+    });
   }
 }

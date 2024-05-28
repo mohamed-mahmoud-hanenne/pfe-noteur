@@ -6,6 +6,7 @@ import { jsPDF } from 'jspdf';
 import { Acheteur } from 'src/app/Models/acheteur';
 import * as QRCode from 'qrcode';
 import { Terrain } from 'src/app/Models/terrain';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -56,10 +57,41 @@ export class ActeComponent implements OnInit{
   }
   
 
-  deleteActe(id:number,i:any){
-    this.noteurservice.deleteActe(id).subscribe(res=>{
-      this.actes.splice(i,1);
-    })
+  // deleteActe(id:number,i:any){
+  //   this.noteurservice.deleteActe(id).subscribe(res=>{
+  //     this.actes.splice(i,1);
+  //   })
+  // }
+
+  deleteActe(id: number, i: any){
+    Swal.fire({
+      title: "Etes-vous sûr?",
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Supprimer",
+      cancelButtonText:"Anuller"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.noteurservice.deleteActe(id).subscribe(res => {
+          this.actes.splice(i, 1);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }, error => {
+          Swal.fire({
+            title: "Error!",
+            text: "There was an error deleting the file.",
+            icon: "error"
+          });
+          console.error('There was an error!', error);
+        });
+      }
+    });
   }
 
   

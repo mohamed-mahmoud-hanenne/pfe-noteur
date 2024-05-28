@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
@@ -32,6 +31,7 @@ import { AddTerrainComponent } from './Components/add-terrain/add-terrain.compon
 import { AddActeComponent } from './Components/add-acte/add-acte.component';
 import { TerrainDetailComponent } from './Components/terrain-detail/terrain-detail.component';
 import { CommonModule } from '@angular/common';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -73,7 +73,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    SweetAlert2Module.forRoot(),
 
   ],
   providers: [],
