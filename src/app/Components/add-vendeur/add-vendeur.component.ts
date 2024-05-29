@@ -33,7 +33,7 @@ export class AddVendeurComponent implements OnInit{
       NNI:['',[Validators.required,Validators.maxLength(10)]],
       numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
       email: ['', Validators.email],
-    })
+    });
   }
 
   // addVendeur(){

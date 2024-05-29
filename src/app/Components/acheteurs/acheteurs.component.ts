@@ -82,6 +82,7 @@ export class AcheteursComponent implements OnInit {
     Swal.fire({
       title: 'Ajouter Acheteur',
       html: `
+        <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
         <form id="acheteurForm">
           <div class="form-group p-2 mb-3">
             <label for="nom" class="text-start">Nom</label>
@@ -123,6 +124,14 @@ export class AcheteursComponent implements OnInit {
       focusConfirm: false,
       customClass: 'swal2-wide',
       confirmButtonText: 'Ajouter',
+      didOpen: () => {
+        const closeButton = document.getElementById('closeButton');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            Swal.close();
+          });
+        }
+      },
       preConfirm: () => {
         const form = document.getElementById('acheteurForm') as HTMLFormElement;
         const formData = new FormData(form);
@@ -138,10 +147,10 @@ export class AcheteursComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        
+        // Mettez à jour le formulaire Angular avec les valeurs du formulaire SweetAlert2
         this.acheteurForm.patchValue(result.value);
-        
-       
+  
+        // Vérifiez si le formulaire Angular est valide avant d'appeler addAcheteur
         if (this.acheteurForm.valid) {
           this.addAcheteur();
         } else {
@@ -154,6 +163,7 @@ export class AcheteursComponent implements OnInit {
       }
     });
   }
+  
   
   
 
