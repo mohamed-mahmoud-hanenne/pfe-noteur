@@ -63,6 +63,29 @@ export class TerrainComponent implements OnInit{
     }
   }
 
+
+  updateTerrain(id: number, data: any) {
+    this.noteurservice.updateTerrain(data, id).subscribe(
+      () => {
+        Swal.fire({
+          title: 'Success',
+          text: 'Terrain modifié avec succès',
+          icon: 'success'
+        }).then(() => {
+          this.reloadTerrain();
+        });
+      },
+      error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'La modification a échoué!',
+          icon: 'error'
+        });
+      }
+    );
+  }
+
+
   reloadTerrain() {
     this.noteurservice.getTerrains().subscribe(
       terrains => {
@@ -168,6 +191,87 @@ export class TerrainComponent implements OnInit{
             title: 'Error!',
             text: 'Formulaire invalide!',
             icon: 'error'
+          });
+        }
+      }
+    });
+  }
+
+  openUpdateAlert(terrain: Terrain) {
+    Swal.fire({
+      title: 'Modifier Terrain',
+      html: `
+        <form id="updateForm">
+          <div class="form-group p-2 mb-3">
+            <label for="Identifiant_terrain" class="text-start">Identifiant Terrain</label>
+            <input id="Identifiant_terrain" name="Identifiant_terrain" type="text" class="form-control" value="${terrain.Identifiant_terrain}" />
+            <span id="Identifiant_terrainError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="localisation" class="text-start">Localisation</label>
+            <input id="localisation" name="localisation" type="text" class="form-control" value="${terrain.localisation}" />
+            <span id="localisationError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="superficie" class="text-start">Superficie</label>
+            <input id="superficie" name="superficie" type="text" class="form-control" value="${terrain.superficie}" />
+            <span id="superficieError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="description" class="text-start">Description</label>
+            <input id="description" name="description" type="text" class="form-control" value="${terrain.description}" />
+            <span id="descriptionError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="proprietaire" class="text-start">Propriétaire</label>
+            <input id="proprietaire" name="proprietaire" type="text" class="form-control" value="${terrain.proprietaire}" />
+            <span id="proprietaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="coordonnees_gps" class="text-start">Coordonnées GPS</label>
+            <input id="coordonnees_gps" name="coordonnees_gps" type="text" class="form-control" value="${terrain.coordonnees_gps}" />
+            <span id="coordonnees_gpsError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="prix" class="text-start">Prix</label>
+            <input id="prix" name="prix" type="text" class="form-control" value="${terrain.prix}" />
+            <span id="prixError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="statut_juridique" class="text-start">Statut Juridique</label>
+            <input id="statut_juridique" name="statut_juridique" type="text" class="form-control" value="${terrain.statut_juridique}" />
+            <span id="statut_juridiqueError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="date_acquisition" class="text-start">Date d'Acquisition</label>
+            <input id="date_acquisition" name="date_acquisition" type="date" class="form-control" value="${terrain.date_acquisition}" />
+            <span id="date_acquisitionError" class="text-danger"></span>
+          </div>
+        </form>
+      `,
+      focusConfirm: false,
+      customClass: 'swal2-wide',
+      showCancelButton: true,
+      confirmButtonText: 'Modifier',
+      cancelButtonText: 'Annuler',
+      didOpen: () => {
+        const updateForm = document.getElementById('updateForm') as HTMLFormElement;
+        const confirmButton = Swal.getConfirmButton();
+    
+        if (confirmButton) {
+          confirmButton.addEventListener('click', () => {
+            const formData = new FormData(updateForm);
+            this.updateTerrain(terrain.id, {
+              Identifiant_terrain: formData.get('Identifiant_terrain') as string,
+              localisation: formData.get('localisation') as string,
+              superficie: formData.get('superficie') as string,
+              description: formData.get('description') as string,
+              proprietaire: formData.get('proprietaire') as string,
+              coordonnees_gps: formData.get('coordonnees_gps') as string,
+              prix: formData.get('prix') as string,
+              statut_juridique: formData.get('statut_juridique') as string,
+              date_acquisition: formData.get('date_acquisition') as string,
+            });
           });
         }
       }

@@ -17,6 +17,7 @@ export class VendeursComponent implements OnInit{
   noResultat:boolean = false;
 
   vendeurForm : FormGroup = new FormGroup({});
+  // updateVendeurForm : FormGroup = new FormGroup({})
 
   constructor(
     private fb:FormBuilder,
@@ -31,6 +32,16 @@ export class VendeursComponent implements OnInit{
       numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
       email: ['', Validators.email],
     });
+
+    // this.updateVendeurForm = this.fb.group({
+    //   nom: ['', Validators.required],
+    //   prenom: ['', Validators.required],
+    //   date_naissance: ['', Validators.required],
+    //   adresse: ['', Validators.required],
+    //   NNI: ['', [Validators.required, Validators.maxLength(10)]],
+    //   numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
+    //   email: ['', Validators.email],
+    // });
   }
 
 
@@ -61,6 +72,27 @@ export class VendeursComponent implements OnInit{
         icon: 'error'
       });
     }
+  }
+
+  updateVendeur(id: number, data: any) {
+    this.noteurservice.updateVendeur(data, id).subscribe(
+      () => {
+        Swal.fire({
+          title: 'Success',
+          text: 'Vendeur modifié avec succès',
+          icon: 'success'
+        }).then(() => {
+          this.reloadVendeurs();
+        });
+      },
+      error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'La modification a échoué!',
+          icon: 'error'
+        });
+      }
+    );
   }
 
   reloadVendeurs() {
@@ -155,6 +187,75 @@ export class VendeursComponent implements OnInit{
             title: 'Error!',
             text: 'Formulaire invalide!',
             icon: 'error'
+          });
+        }
+      }
+    });
+  }
+
+  openUpdateAlert(vendeur: Acheteur) {
+    Swal.fire({
+      title: 'Modifier Vendeur',
+      html: `
+        <form id="updateForm">
+          <div class="form-group p-2 mb-3">
+            <label for="nom" class="text-start">Nom</label>
+            <input id="nom" name="nom" type="text" class="form-control" value="${vendeur.nom}" />
+            <span id="nomError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="prenom" class="text-start">Prenom</label>
+            <input id="prenom" name="prenom" type="text" class="form-control" value="${vendeur.prenom}" />
+            <span id="prenomError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="date_naissance" class="text-start">Date de naissance</label>
+            <input id="date_naissance" name="date_naissance" type="date" class="form-control" value="${vendeur.date_naissance}" />
+            <span id="date_naissanceError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="adresse" class="text-start">Adresse</label>
+            <input id="adresse" name="adresse" type="text" class="form-control" value="${vendeur.adresse}" />
+            <span id="adresseError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="NNI" class="text-start">NNI</label>
+            <input id="NNI" name="NNI" type="text" class="form-control" value="${vendeur.NNI}" />
+            <span id="NNIError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="numero_tel" class="text-start">Téléphone</label>
+            <input id="numero_tel" name="numero_tel" type="tel" class="form-control" value="${vendeur.numero_tel}" />
+            <span id="numero_telError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="email" class="text-start">Email</label>
+            <input id="email" name="email" type="email" class="form-control" value="${vendeur.email}" />
+            <span id="emailError" class="text-danger"></span>
+          </div>
+        </form>
+      `,
+      focusConfirm: false,
+      customClass: 'swal2-wide',
+      showCancelButton: true,
+      confirmButtonText: 'Modifier',
+      cancelButtonText: 'Annuler',
+      didOpen: () => {
+        const updateForm = document.getElementById('updateForm') as HTMLFormElement;
+        const confirmButton = Swal.getConfirmButton();
+  
+        if (confirmButton) {
+          confirmButton.addEventListener('click', () => {
+            const formData = new FormData(updateForm);
+            this.updateVendeur(vendeur.id, {
+              nom: formData.get('nom') as string,
+              prenom: formData.get('prenom') as string,
+              date_naissance: formData.get('date_naissance') as string,
+              adresse: formData.get('adresse') as string,
+              NNI: formData.get('NNI') as string,
+              numero_tel: formData.get('numero_tel') as string,
+              email: formData.get('email') as string
+            });
           });
         }
       }

@@ -89,6 +89,10 @@ export class NoteurService {
     return this.http.put<any>(`http://127.0.0.1:8000/api/updateterrain/${terrainId}`,terrainData)
   }
 
+  updateTransaction(transactionData:any, transactionId: any):Observable<any>{
+    return this.http.put<any>(`http://127.0.0.1:8000/api/updatetransaction/${transactionId}`,transactionData)
+  }
+
   deleteAcheteur(id:number):Observable<any>{
     let url = `${this.api}/deleteacheteur/${id}`;
     return this.http.delete(url,{headers:this.httpHeaders}).pipe(

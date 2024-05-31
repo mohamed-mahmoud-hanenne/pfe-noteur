@@ -69,6 +69,22 @@ export class ActeComponent implements OnInit{
   }
 
 
+getAcheteurName(id: number): string {
+  const acheteur = this.acheteursinacte.find(a => a.id === id);
+  return acheteur ? `${acheteur.nom} ${acheteur.prenom}` : 'N/A';
+}
+
+getVendeurName(id: number): string {
+  const vendeur = this.vendeursinacte.find(v => v.id === id);
+  return vendeur ? `${vendeur.nom} ${vendeur.prenom}` : 'N/A';
+}
+
+getTerrainIdentifiant(id: number): string {
+  const terrain = this.terrainsinacte.find(t => t.id === id);
+  return terrain ? terrain.Identifiant_terrain : 'N/A';
+}
+
+
   addActe() {
     if (this.acteForm.valid) {
       this.noteurservice.addActe(this.acteForm.value).subscribe(
@@ -97,6 +113,29 @@ export class ActeComponent implements OnInit{
       });
     }
   }
+
+  updateActe(id: number, data: any) {
+    this.noteurservice.updateTransaction(data, id).subscribe(
+      () => {
+        Swal.fire({
+          title: 'Success',
+          text: 'Acte modifié avec succès',
+          icon: 'success'
+        }).then(() => {
+          this.reloadActe();
+        });
+      },
+      error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'La modification a échoué!',
+          icon: 'error'
+        });
+      }
+    );
+  }
+
+
 
   reloadActe() {
     this.noteurservice.getActes().subscribe(
@@ -218,10 +257,103 @@ export class ActeComponent implements OnInit{
       }
     });
   }
+
+  openUpdateAlert(acte: Acte,acheteurs: any[], vendeurs: any[], terrains: any[]) {
+    Swal.fire({
+      title: 'Modifier Acte',
+      html: `
+        <form id="updateForm" style="height:600px">
+          <div class="form-group p-2 mb-3">
+            <label for="date_transaction" class="text-start">Date de Transaction</label>
+            <input id="date_transaction" name="date_transaction" type="date" class="form-control" value="${acte.date_transaction}" />
+            <span id="date_transactionError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="montant" class="text-start">Montant</label>
+            <input id="montant" name="montant" type="number" class="form-control" value="${acte.montant}" />
+            <span id="montantError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="nom_temoin" class="text-start">Nom du Témoin</label>
+            <input id="nom_temoin" name="nom_temoin" type="text" class="form-control" value="${acte.nom_temoin}" />
+            <span id="nom_temoinError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="NNI_temoin" class="text-start">NNI du Témoin</label>
+            <input id="NNI_temoin" name="NNI_temoin" type="text" class="form-control" value="${acte.NNI_temoin}" />
+            <span id="NNI_temoinError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="nom_notaire" class="text-start">Nom du Notaire</label>
+            <input id="nom_notaire" name="nom_notaire" type="text" class="form-control" value="${acte.nom_notaire}" />
+            <span id="nom_notaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="NNI_notaire" class="text-start">NNI du Notaire</label>
+            <input id="NNI_notaire" name="NNI_notaire" type="text" class="form-control" value="${acte.NNI_notaire}" />
+            <span id="NNI_notaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="frais_notaire" class="text-start">Frais de Notaire</label>
+            <input id="frais_notaire" name="frais_notaire" type="number" class="form-control" value="${acte.frais_notaire}" />
+            <span id="frais_notaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="id_acheteur" class="text-start">Nom Acheteur</label>
+            <select id="id_acheteur" name="id_acheteur" class="form-select">
+            ${acheteurs.map(acheteur => `<option value="${acheteur.id}">${acheteur.nom}</option>`).join('')}
+          </select>
+            <span id="id_acheteurError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="id_vendeur" class="text-start">Nom Vendeur</label>
+            <select id="id_vendeur" name="id_vendeur" class="form-select">
+            ${vendeurs.map(vendeur => `<option value="${vendeur.id}">${vendeur.nom}</option>`).join('')}
+          </select>
+            <span id="id_vendeurError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="id_terrain" class="text-start">ID Terrain</label>
+            <select id="id_terrain" name="id_terrain" class="form-select">
+            ${terrains.map(terrain => `<option value="${terrain.id}">${terrain.Identifiant_terrain}</option>`).join('')}
+          </select>
+            <span id="id_terrainError" class="text-danger"></span>
+          </div>
+        </form>
+      `,
+      focusConfirm: false,
+      customClass: 'swal2-wide',
+      showCancelButton: true,
+      confirmButtonText: 'Modifier',
+      cancelButtonText: 'Annuler',
+      didOpen: () => {
+        const updateForm = document.getElementById('updateForm') as HTMLFormElement;
+        const confirmButton = Swal.getConfirmButton();
+    
+        if (confirmButton) {
+          confirmButton.addEventListener('click', () => {
+            const formData = new FormData(updateForm);
+            this.updateActe(acte.id, {
+              date_transaction: formData.get('date_transaction') as string,
+              montant: formData.get('montant') as string,
+              nom_temoin: formData.get('nom_temoin') as string,
+              NNI_temoin: formData.get('NNI_temoin') as string,
+              nom_notaire: formData.get('nom_notaire') as string,
+              NNI_notaire: formData.get('NNI_notaire') as string,
+              frais_notaire: formData.get('frais_notaire') as string,
+              id_acheteur: formData.get('id_acheteur') as string,
+              id_vendeur: formData.get('id_vendeur') as string,
+              id_terrain: formData.get('id_terrain') as string,
+            });
+          });
+        }
+      }
+  });
+
+  }
   
 
-
-
+  
   search():void{
     const searchValue = this.searchText.toLowerCase();
     this.filteredActe = this.actes.filter(acte=>

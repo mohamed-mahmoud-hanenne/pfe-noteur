@@ -60,7 +60,7 @@
                         <td>{{terrain.statut_juridique}}</td>
                         <td>{{terrain.date_acquisition}}</td>
                         <td>
-                            <a class="edit" data-toggle="modal" routerLink="/terrain-detail/{{terrain.id}}"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a class="edit" data-toggle="modal" (click)="openUpdateAlert(terrain)"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a class="delete" data-toggle="modal" (click)="deleteTerrain(terrain.id,i)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>

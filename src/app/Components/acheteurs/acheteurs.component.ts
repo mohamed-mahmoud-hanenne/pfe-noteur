@@ -115,8 +115,6 @@ export class AcheteursComponent implements OnInit {
   }
   
 
-
-
   openFormAlert() {
     Swal.fire({
       title: 'Ajouter Acheteur',
