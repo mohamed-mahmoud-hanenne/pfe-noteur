@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Acte } from 'src/app/Models/acte';
 import { NoteurService } from 'src/app/service/noteur.service';
-import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 import { Acheteur } from 'src/app/Models/acheteur';
 import * as QRCode from 'qrcode';
 import { Terrain } from 'src/app/Models/terrain';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -24,8 +24,29 @@ export class ActeComponent implements OnInit{
   terrains:Terrain[] = [];
   filteredActe: Acte[] = [];
   noResultat:boolean = false;
+  acheteursinacte : Acheteur[] = [];
+  vendeursinacte : Acheteur[] = [];
+  terrainsinacte : Terrain[] = [];
 
-  constructor(private noteurservice: NoteurService){}
+  acteForm :FormGroup = new FormGroup({});
+
+  constructor(
+    private noteurservice: NoteurService,
+    private fb:FormBuilder
+  ){
+    this.acteForm = this.fb.group({
+      date_transaction:['',Validators.required],
+      montant:['',Validators.required],
+      nom_temoin:['',Validators.required],
+      NNI_temoin: ['', [Validators.required, Validators.maxLength(10)]],
+      nom_notaire:['',Validators.required],
+      NNI_notaire:['',[Validators.required, Validators.maxLength(10)]],
+      frais_notaire:['',Validators.required],
+      id_acheteur:['',Validators.required],
+      id_vendeur:['',Validators.required],
+      id_terrain:['',Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.noteurservice.getActes().subscribe(ac=>{
@@ -37,15 +58,169 @@ export class ActeComponent implements OnInit{
     }
   );
   this.noteurservice.getAcheteurs().subscribe(a=>{
-    this.acheteurs = a;
+    this.acheteursinacte = a;
   });
   this.noteurservice.getVendeurs().subscribe(v=>{
-    this.vendeurs = v;
+    this.vendeursinacte = v;
   });
   this.noteurservice.getTerrains().subscribe(t=>{
-    this.terrains = t;
+    this.terrainsinacte = t;
   });
   }
+
+
+  addActe() {
+    if (this.acteForm.valid) {
+      this.noteurservice.addActe(this.acteForm.value).subscribe(
+        () => {
+          Swal.fire({
+            title: 'Success',
+            text: 'Acte ajouté avec succès',
+            icon: 'success'
+          }).then(() => {
+            this.reloadActe(); 
+          });
+        },
+        error => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Ajout a échoué!',
+            icon: 'error'
+          });
+        }
+      );
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Formulaire invalide!',
+        icon: 'error'
+      });
+    }
+  }
+
+  reloadActe() {
+    this.noteurservice.getActes().subscribe(
+      actes => {
+        this.actes = actes;
+        this.filteredActe = actes;
+      },
+      error => {
+        console.error('Il ya un erreur!', error);
+      }
+    );
+  }
+
+  openFormAlert(acheteurs: any[], vendeurs: any[], terrains: any[]) {
+    Swal.fire({
+      title: 'Ajouter Acte',
+      html: `
+        <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
+        <form id="acteForm" style="padding-top: 40px;">
+          <div class="form-group p-2 mb-3">
+            <label for="date_transaction">Date transaction</label>
+            <input id="date_transaction" name="date_transaction" type="date" class="form-control" />
+            <span id="date_transactionError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="montant">Montant</label>
+            <input id="montant" name="montant" type="number" class="form-control" />
+            <span id="montantError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="nom_temoin">Nom témoin</label>
+            <input id="nom_temoin" name="nom_temoin" type="text" class="form-control" />
+            <span id="nom_temoinError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="NNI_temoin">NNI témoin</label>
+            <input id="NNI_temoin" name="NNI_temoin" type="number" class="form-control" />
+            <span id="NNI_temoinError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="nom_notaire">Nom notaire</label>
+            <input id="nom_notaire" name="nom_notaire" type="text" class="form-control" />
+            <span id="nom_notaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="NNI_notaire">NNI notaire</label>
+            <input id="NNI_notaire" name="NNI_notaire" type="number" class="form-control" />
+            <span id="NNI_notaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="frais_notaire">Frais notaire</label>
+            <input id="frais_notaire" name="frais_notaire" type="number" class="form-control" />
+            <span id="frais_notaireError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="id_acheteur">Nom acheteur</label>
+            <select id="id_acheteur" name="id_acheteur" class="form-select">
+            ${acheteurs.map(acheteur => `<option value="${acheteur.id}">${acheteur.nom}</option>`).join('')}
+          </select>
+            <span id="id_acheteurError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="id_vendeur">Nom vendeur</label>
+            <select id="id_vendeur" name="id_vendeur" class="form-select">
+            ${vendeurs.map(vendeur => `<option value="${vendeur.id}">${vendeur.nom}</option>`).join('')}
+          </select>
+            <span id="id_vendeurError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="id_terrain">Identifiant terrain</label>
+            <select id="id_terrain" name="id_terrain" class="form-select">
+        ${terrains.map(terrain => `<option value="${terrain.id}">${terrain.Identifiant_terrain}</option>`).join('')}
+      </select>
+            <span id="id_terrainError" class="text-danger"></span>
+          </div>
+        </form>
+      `,
+      focusConfirm: false,
+      customClass: 'swal2-wide',
+      showCancelButton: true,
+      confirmButtonText: 'Ajouter',
+      cancelButtonText: 'Annuler',
+      didOpen: () => {
+        const closeButton = document.getElementById('closeButton');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            Swal.close();
+          });
+        }
+      },
+      preConfirm: () => {
+        const form = document.getElementById('acteForm') as HTMLFormElement;
+        const formData = new FormData(form);
+        return {
+          date_transaction: formData.get('date_transaction') as string,
+          montant: formData.get('montant') as string,
+          nom_temoin: formData.get('nom_temoin') as string,
+          NNI_temoin: formData.get('NNI_temoin') as string,
+          nom_notaire: formData.get('nom_notaire') as string,
+          NNI_notaire: formData.get('NNI_notaire') as string,
+          frais_notaire: formData.get('frais_notaire') as string,
+          id_acheteur: formData.get('id_acheteur') as string,
+          id_vendeur: formData.get('id_vendeur') as string,
+          id_terrain: formData.get('id_terrain') as string
+        };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.acteForm.patchValue(result.value);
+        if (this.acteForm.valid) {
+          this.addActe();
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Formulaire invalide!',
+            icon: 'error'
+          });
+        }
+      }
+    });
+  }
+  
+
+
 
   search():void{
     const searchValue = this.searchText.toLowerCase();
@@ -97,9 +272,9 @@ export class ActeComponent implements OnInit{
   
 
   async downloadActe(acte: Acte): Promise<void> {
-    const acheteur = this.acheteurs.find(a => a.id === acte.id_acheteur);
-    const vendeur = this.vendeurs.find(v => v.id === acte.id_vendeur);
-    const terrain = this.terrains.find(t => t.id === acte.id_terrain);
+    const acheteur = this.acheteursinacte.find(a => a.id === acte.id_acheteur);
+    const vendeur = this.vendeursinacte.find(v => v.id === acte.id_vendeur);
+    const terrain = this.terrainsinacte.find(t => t.id === acte.id_terrain);
 
     if (!acheteur || !vendeur || !terrain) {
       console.error('Acheteur, vendeur ou terrain non trouvé');
@@ -130,7 +305,8 @@ export class ActeComponent implements OnInit{
     doc.setTextColor(0, 0, 0);
 
     const acteDetails = `
-      Je soussigné, ${acte.nom_notaire}, notaire inscrit sous le numéro d'identification nationale ${acte.NNI_notaire},
+      Je soussigné, ${acte.nom_notaire}, notaire inscrit sous le numéro d'identification nationale 
+      ${acte.NNI_notaire},
       atteste par la présente que le terrain identifié par le matricule ${terrain.Identifiant_terrain} a été vendu par 
       ${vendeur.nom} ${vendeur.prenom} (NNI: ${vendeur.NNI}) à ${acheteur.nom} ${acheteur.prenom} (NNI: ${acheteur.NNI}).
       La transaction a été effectuée le ${acte.date_transaction} pour un montant de ${acte.montant} MRO, 

@@ -81,7 +81,7 @@ export class TerrainComponent implements OnInit{
     Swal.fire({
       title: 'Ajouter Terrain',
       html: `
-        <button id="closeButton" type="button" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
+      <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
         <form id="terrainForm" style="padding-top: 40px;">
           <div class="form-group p-2 mb-3">
             <label for="Identifiant_terrain" class="text-start">Identifiant terrain</label>
@@ -132,7 +132,9 @@ export class TerrainComponent implements OnInit{
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
+      showCancelButton: true,
       confirmButtonText: 'Ajouter',
+      cancelButtonText: 'Annuler',
       didOpen: () => {
         const closeButton = document.getElementById('closeButton');
         if (closeButton) {

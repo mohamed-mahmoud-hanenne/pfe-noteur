@@ -3,7 +3,7 @@ import { NoteurService } from 'src/app/service/noteur.service';
 import { Acheteur } from 'src/app/Models/acheteur';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-acheteurs',
@@ -18,9 +18,15 @@ export class AcheteursComponent implements OnInit {
   noResultat: boolean = false;
 
   acheteurForm: FormGroup = new FormGroup({});
+  getId:any;
+  updateForm: FormGroup = new FormGroup({});
 
-  constructor(private noteurservice: NoteurService,private fb: FormBuilder, private ngzone:NgZone,
-   private router:Router
+  constructor(
+    private noteurservice: NoteurService,
+    private fb: FormBuilder, 
+    private ngzone:NgZone,
+    private router:Router,
+    private activateroute:ActivatedRoute,
   ) {
     this.acheteurForm = this.fb.group({
       nom: ['', Validators.required],
@@ -31,6 +37,17 @@ export class AcheteursComponent implements OnInit {
       numero_tel: ['', [Validators.required, Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]]
     });
+
+    this.updateForm = this.fb.group({
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      date_naissance: ['', Validators.required],
+      adresse: ['', Validators.required],
+      NNI: ['', [Validators.required, Validators.maxLength(10)]],
+      numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
+      email: ['', Validators.email],
+    });
+
   }
 
 
@@ -62,6 +79,28 @@ export class AcheteursComponent implements OnInit {
       });
     }
   }
+
+  updateAcheteur(id: number, data: any) {
+    this.noteurservice.updateAcheteur(data, id).subscribe(
+      () => {
+        Swal.fire({
+          title: 'Success',
+          text: 'Acheteur modifié avec succès',
+          icon: 'success'
+        }).then(() => {
+          this.reloadAcheteurs();
+        });
+      },
+      error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'La modification a échoué!',
+          icon: 'error'
+        });
+      }
+    );
+  }
+  
   
   reloadAcheteurs() {
     this.noteurservice.getAcheteurs().subscribe(
@@ -164,6 +203,75 @@ export class AcheteursComponent implements OnInit {
     });
   }
   
+  
+  openUpdateAlert(acheteur: Acheteur) {
+    Swal.fire({
+      title: 'Modifier Acheteur',
+      html: `
+        <form id="updateForm">
+          <div class="form-group p-2 mb-3">
+            <label for="nom" class="text-start">Nom</label>
+            <input id="nom" name="nom" type="text" class="form-control" value="${acheteur.nom}" />
+            <span id="nomError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="prenom" class="text-start">Prenom</label>
+            <input id="prenom" name="prenom" type="text" class="form-control" value="${acheteur.prenom}" />
+            <span id="prenomError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="date_naissance" class="text-start">Date de naissance</label>
+            <input id="date_naissance" name="date_naissance" type="date" class="form-control" value="${acheteur.date_naissance}" />
+            <span id="date_naissanceError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="adresse" class="text-start">Adresse</label>
+            <input id="adresse" name="adresse" type="text" class="form-control" value="${acheteur.adresse}" />
+            <span id="adresseError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="NNI" class="text-start">NNI</label>
+            <input id="NNI" name="NNI" type="text" class="form-control" value="${acheteur.NNI}" />
+            <span id="NNIError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="numero_tel" class="text-start">Téléphone</label>
+            <input id="numero_tel" name="numero_tel" type="tel" class="form-control" value="${acheteur.numero_tel}" />
+            <span id="numero_telError" class="text-danger"></span>
+          </div>
+          <div class="form-group p-2 mb-3">
+            <label for="email" class="text-start">Email</label>
+            <input id="email" name="email" type="email" class="form-control" value="${acheteur.email}" />
+            <span id="emailError" class="text-danger"></span>
+          </div>
+        </form>
+      `,
+      focusConfirm: false,
+      customClass: 'swal2-wide',
+      showCancelButton: true,
+      confirmButtonText: 'Modifier',
+      cancelButtonText: 'Annuler',
+      didOpen: () => {
+        const updateForm = document.getElementById('updateForm') as HTMLFormElement;
+        const confirmButton = Swal.getConfirmButton();
+  
+        if (confirmButton) {
+          confirmButton.addEventListener('click', () => {
+            const formData = new FormData(updateForm);
+            this.updateAcheteur(acheteur.id, {
+              nom: formData.get('nom') as string,
+              prenom: formData.get('prenom') as string,
+              date_naissance: formData.get('date_naissance') as string,
+              adresse: formData.get('adresse') as string,
+              NNI: formData.get('NNI') as string,
+              numero_tel: formData.get('numero_tel') as string,
+              email: formData.get('email') as string
+            });
+          });
+        }
+      }
+    });
+  }
   
   
 
