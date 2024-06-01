@@ -18,28 +18,26 @@ import { VendeurDetailComponent } from './Components/vendeur-detail/vendeur-deta
 import { AddTerrainComponent } from './Components/add-terrain/add-terrain.component';
 import { TerrainDetailComponent } from './Components/terrain-detail/terrain-detail.component';
 import { AddActeComponent } from './Components/add-acte/add-acte.component';
+import { DashboardLayoutComponentComponent } from './Components/dashboard-layout-component/dashboard-layout-component.component';
+
 
 const routes: Routes = [
-  {path:'',redirectTo:'/home', pathMatch:'full'},
-  {path:'home',component:HomeComponent,title:'Home'},
-  {path:'services',component:SericesComponent,title:'Services'},
-  {path:'about',component:AboutComponent,title:'About'},
-  {path:'contact',component:ContactComponent,title:'Contact'},
-  {path:'signin',component:SigninComponent,title:'Sign In'},
-  {path:'login',component:LoginComponent,title:'Login'},
-  
-  {path:'dashbord',component:DashbordAdminComponent,title:'Dashbord'},
-  {path:'acheteurs',component:AcheteursComponent,title:'Acheteurs'},
-  {path:'vendeurs',component:VendeursComponent,title:'Vendeurs'},
-  {path:'terrain',component:TerrainComponent,title:'Terrain'},
-  {path:'acte',component:ActeComponent,title:'Acte'},
-  {path:'add-acheteur',component:AddAcheteurComponent,title:'Ajouter-acheteur'},
-  {path:'acheteur-detail/:id',component:AcheteurDetailComponent,title:'Modifier-acheteur'},
-  {path:'add-vendeur',component:AddVendeurComponent,title:'Ajouter-vendeur'},
-  {path:'vendeur-detail/:id',component:VendeurDetailComponent,title:'Modifier-vendeur'},
-  {path:'add-terrain',component:AddTerrainComponent,title:'Ajouter-terrain'},
-  {path:'terrain-detail/:id',component:TerrainDetailComponent,title:'Modifier-terrain'},
-  {path:'add-acte',component:AddActeComponent,title:'Ajouter-acte'},
+  { path: 'home', component: HomeComponent, title: 'Home' },
+  { path: 'services', component: SericesComponent, title: 'Services' },
+  { path: 'about', component: AboutComponent, title: 'About' },
+  { path: 'contact', component: ContactComponent, title: 'Contact' },
+  { path: 'signin', component: SigninComponent, title: 'Sign In' },
+  { path: 'login', component: LoginComponent, title: 'Login' },
+  {
+    path: 'dashboard', component: DashboardLayoutComponentComponent, children: [
+      { path: '', component: DashbordAdminComponent, title: 'Dashboard' },
+      { path: 'acheteurs', component: AcheteursComponent, title: 'Acheteurs' },
+      { path: 'vendeurs', component: VendeursComponent, title: 'Vendeurs' },
+      { path: 'terrain', component: TerrainComponent, title: 'Terrain' },
+      { path: 'acte', component: ActeComponent, title: 'Acte' },
+    ]
+  },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Acheteur } from 'src/app/Models/acheteur';
 import { NoteurService } from 'src/app/service/noteur.service';
 
@@ -10,7 +11,7 @@ import { NoteurService } from 'src/app/service/noteur.service';
 export class DashbordAdminComponent implements OnInit{
   acheteurs: Acheteur[] = [];
   searchText: string = '';
-  constructor(private noteurservice: NoteurService){}
+  constructor(private noteurservice: NoteurService,private ngZone:NgZone,private router:Router){}
 
   ngOnInit(): void {
     this.noteurservice.getAcheteurs().subscribe(a=>{
@@ -19,6 +20,9 @@ export class DashbordAdminComponent implements OnInit{
     });
   }
 
+  navigatetoAcheteurs(){
+    this.ngZone.run(()=>this.router.navigateByUrl('/acheteurs'));
+  }
   filteredAcheteur: Acheteur[] = [];
 
   search(): void {

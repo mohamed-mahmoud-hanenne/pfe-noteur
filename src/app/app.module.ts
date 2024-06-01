@@ -32,6 +32,7 @@ import { AddActeComponent } from './Components/add-acte/add-acte.component';
 import { TerrainDetailComponent } from './Components/terrain-detail/terrain-detail.component';
 import { CommonModule } from '@angular/common';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { DashboardLayoutComponentComponent } from './Components/dashboard-layout-component/dashboard-layout-component.component';
 
 
 
@@ -58,7 +59,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     VendeurDetailComponent,
     AddTerrainComponent,
     AddActeComponent,
-    TerrainDetailComponent
+    TerrainDetailComponent,
+    DashboardLayoutComponentComponent
     
    
   ],

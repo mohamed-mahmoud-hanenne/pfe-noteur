@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
         text: 'Bienvenue dans votre dashboard!',
         icon: 'success'
       }).then(() => {
-        this.router.navigate(['/dashbord']);
+        this.router.navigateByUrl('/dashboard');
       });
     },
     error => {
