@@ -360,7 +360,7 @@ getTerrainIdentifiant(id: number): string {
       acte.id.toString().includes(searchValue)
     );
     this.noResultat = this.filteredActe.length === 0;
-    this.searchText = '';
+    // this.searchText = '';
   }
   
 

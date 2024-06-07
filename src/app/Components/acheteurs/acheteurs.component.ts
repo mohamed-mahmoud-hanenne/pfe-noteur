@@ -292,7 +292,7 @@ export class AcheteursComponent implements OnInit {
       acheteur.NNI.toString().includes(searchValue)
     );
     this.noResultat = this.filteredAcheteurs.length === 0;
-    this.searchText = '';
+    // this.searchText = '';
   }
 
   delete(id: number, i: any): void {
@@ -310,17 +310,17 @@ export class AcheteursComponent implements OnInit {
         this.noteurservice.deleteAcheteur(id).subscribe(res => {
           this.acheteurs.splice(i, 1);
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "Success!",
+            text: "Acheteur a supprimé avec succès.",
             icon: "success"
           });
         }, error => {
           Swal.fire({
             title: "Error!",
-            text: "There was an error deleting the file.",
+            text: "La suppression a echoué.",
             icon: "error"
           });
-          console.error('There was an error!', error);
+          console.error('Il ya un erreur!', error);
         });
       }
     });

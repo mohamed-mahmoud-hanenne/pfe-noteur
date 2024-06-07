@@ -299,17 +299,17 @@ export class VendeursComponent implements OnInit{
         this.noteurservice.deleteVendeur(id).subscribe(res => {
           this.vendeurs.splice(i, 1);
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "Success!",
+            text: "Vendeur a supprimé avec succès.",
             icon: "success"
           });
         }, error => {
           Swal.fire({
             title: "Error!",
-            text: "There was an error deleting the file.",
+            text: "La suppression a echoué.",
             icon: "error"
           });
-          console.error('There was an error!', error);
+          console.error('Il ya un erreur!', error);
         });
       }
     });

@@ -295,7 +295,7 @@ export class TerrainComponent implements OnInit{
     this.filtredTerrains = this.terrains.filter(terrain=>
       terrain.Identifiant_terrain.toLowerCase().includes(searchValue)
     );
-    this.searchText = '';
+    // this.searchText = '';
     this.noResultat = this.filtredTerrains.length === 0;
   }
 
