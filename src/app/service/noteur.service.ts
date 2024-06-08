@@ -6,6 +6,7 @@ import { Acte } from '../Models/acte';
 import { Terrain } from '../Models/terrain';
 import { UserLogin } from '../Models/user-login';
 import { Usersignup } from '../Models/usersignup';
+import { Procuration } from '../Models/procuration';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,11 @@ export class NoteurService {
     return this.http.get<Acheteur[]>(`${this.api}/acheteur`).pipe(
       catchError(this.handleError)
     );
-}
+  }
 
-
+  getProcurations():Observable<Procuration[]>{
+    return this.http.get<Procuration[]>(`${this.api}/procuration`);
+  }
 
   getVendeurs():Observable<any>{
     return this.http.get(`${this.api}/vendeur`);

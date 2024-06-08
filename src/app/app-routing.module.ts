@@ -18,6 +18,7 @@ import { VendeurDetailComponent } from './Components/vendeur-detail/vendeur-deta
 import { AddTerrainComponent } from './Components/add-terrain/add-terrain.component';
 import { TerrainDetailComponent } from './Components/terrain-detail/terrain-detail.component';
 import { AddActeComponent } from './Components/add-acte/add-acte.component';
+import { ProcurationComponent } from './Components/procuration/procuration.component';
 
 const routes: Routes = [
   // {path:'',redirectTo:'/home', pathMatch:'full'},
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path:'add-terrain',component:AddTerrainComponent,title:'Ajouter-terrain'},
   {path:'terrain-detail/:id',component:TerrainDetailComponent,title:'Modifier-terrain'},
   {path:'add-acte',component:AddActeComponent,title:'Ajouter-acte'},
+  {path:'procuration-enfant',component:ProcurationComponent,title:'Procuration Enfant'},
 ];
 
 @NgModule({
