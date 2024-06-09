@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit{
   login(){
     this.noteurservice.login(this.user).subscribe(res=>{
       Swal.fire({
-        title: 'Success login!',
+        title: 'Succès!',
         text: 'Bienvenue dans votre dashboard!',
         icon: 'success'
       }).then(() => {
@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit{
     },
     error => {
       Swal.fire({
-        title: 'Error!',
-        text: 'Login failed!',
+        title: 'Connexion echoué!',
+        text: 'Email ou mot de passe est incorrect!',
         icon: 'error'
       });
     }

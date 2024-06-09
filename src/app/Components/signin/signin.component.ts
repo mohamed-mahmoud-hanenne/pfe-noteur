@@ -33,8 +33,8 @@ export class SigninComponent implements OnInit{
       this.notaireservice.register(this.signupForm.value).subscribe(
         response=>{
           Swal.fire({
-            title: 'Success job!',
-            text: 'Votre compte est crée avec success!',
+            title: 'Succès!',
+            text: 'Votre compte a crée avec succès!',
             icon: 'success'
           }).then(() => {
             this.router.navigate(['/login']);
@@ -43,16 +43,16 @@ export class SigninComponent implements OnInit{
         },
         error => {
           Swal.fire({
-            title: 'Error!',
-            text: 'Registration failed!',
+            title: 'Erreur!',
+            text: 'Email déja utilisé',
             icon: 'error'
           });
         }
       );
     } else{
       Swal.fire({
-        title: 'Error!',
-        text: 'Please fill the form correctly!',
+        title: 'Erreur!',
+        text: 'Veuillez remplir correctement le formulaire!',
         icon: 'error'
       });
     }
