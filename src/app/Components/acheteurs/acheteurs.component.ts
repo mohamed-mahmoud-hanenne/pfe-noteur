@@ -8,25 +8,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-acheteurs',
   templateUrl: './acheteurs.component.html',
-  styleUrls: ['./acheteurs.component.scss']
+  styleUrls: ['./acheteurs.component.scss'],
 })
 export class AcheteursComponent implements OnInit {
-
   searchText: string = '';
   acheteurs: Acheteur[] = [];
   filteredAcheteurs: Acheteur[] = [];
   noResultat: boolean = false;
 
   acheteurForm: FormGroup = new FormGroup({});
-  getId:any;
+  getId: any;
   updateForm: FormGroup = new FormGroup({});
 
   constructor(
     private noteurservice: NoteurService,
-    private fb: FormBuilder, 
-    private ngzone:NgZone,
-    private router:Router,
-    private activateroute:ActivatedRoute,
+    private fb: FormBuilder,
+    private ngzone: NgZone,
+    private router: Router,
+    private activateroute: ActivatedRoute
   ) {
     this.acheteurForm = this.fb.group({
       nom: ['', Validators.required],
@@ -35,7 +34,7 @@ export class AcheteursComponent implements OnInit {
       adresse: ['', Validators.required],
       NNI: ['', [Validators.required, Validators.maxLength(10)]],
       numero_tel: ['', [Validators.required, Validators.maxLength(10)]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
 
     this.updateForm = this.fb.group({
@@ -47,35 +46,33 @@ export class AcheteursComponent implements OnInit {
       numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
       email: ['', Validators.email],
     });
-
   }
-
 
   addAcheteur() {
     if (this.acheteurForm.valid) {
       this.noteurservice.addAcheteur(this.acheteurForm.value).subscribe(
         () => {
           Swal.fire({
-            title: 'Success',
-            text: 'Acheteur ajouté avec succès',
-            icon: 'success'
+            title: 'Succès',
+            text: 'Acheteur a ajouté avec succès',
+            icon: 'success',
           }).then(() => {
-            this.reloadAcheteurs(); 
+            this.reloadAcheteurs();
           });
         },
-        error => {
+        (error) => {
           Swal.fire({
-            title: 'Error!',
+            title: 'Erreur!',
             text: 'Ajout a échoué!',
-            icon: 'error'
+            icon: 'error',
           });
         }
       );
     } else {
       Swal.fire({
-        title: 'Error!',
-        text: 'Formulaire invalide!',
-        icon: 'error'
+        title: 'Erreur!',
+        text: 'Veuillez remplir correctement le formulaire!',
+        icon: 'error',
       });
     }
   }
@@ -84,36 +81,38 @@ export class AcheteursComponent implements OnInit {
     this.noteurservice.updateAcheteur(data, id).subscribe(
       () => {
         Swal.fire({
-          title: 'Success',
-          text: 'Acheteur modifié avec succès',
-          icon: 'success'
+          title: 'Succès',
+          text: 'Acheteur a modifié avec succès',
+          icon: 'success',
         }).then(() => {
           this.reloadAcheteurs();
         });
       },
-      error => {
+      (error) => {
         Swal.fire({
-          title: 'Error!',
+          title: 'Erreur!',
           text: 'La modification a échoué!',
-          icon: 'error'
+          icon: 'error',
         });
       }
     );
   }
-  
-  
+
   reloadAcheteurs() {
     this.noteurservice.getAcheteurs().subscribe(
-      acheteurs => {
+      (acheteurs) => {
         this.acheteurs = acheteurs;
         this.filteredAcheteurs = acheteurs;
       },
-      error => {
-        console.error('There was an error!', error);
+      (error) => {
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Il ya un erreur!',
+          icon: 'error',
+        });
       }
     );
   }
-  
 
   openFormAlert() {
     Swal.fire({
@@ -179,33 +178,33 @@ export class AcheteursComponent implements OnInit {
           adresse: formData.get('adresse') as string,
           NNI: formData.get('NNI') as string,
           numero_tel: formData.get('numero_tel') as string,
-          email: formData.get('email') as string
+          email: formData.get('email') as string,
         };
-      }
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         // Mettez à jour le formulaire Angular avec les valeurs du formulaire SweetAlert2
         this.acheteurForm.patchValue(result.value);
-  
+
         // Vérifiez si le formulaire Angular est valide avant d'appeler addAcheteur
         if (this.acheteurForm.valid) {
           this.addAcheteur();
         } else {
           Swal.fire({
-            title: 'Error!',
-            text: 'Formulaire invalide!',
-            icon: 'error'
+            title: 'Erreur!',
+            text: 'Veuillez remplir correctement le formulaire!',
+            icon: 'error',
           });
         }
       }
     });
   }
-  
-  
+
   openUpdateAlert(acheteur: Acheteur) {
     Swal.fire({
       title: 'Modifier Acheteur',
       html: `
+      <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
         <form id="updateForm">
           <div class="form-group p-2 mb-3">
             <label for="nom" class="text-start">Nom</label>
@@ -246,13 +245,21 @@ export class AcheteursComponent implements OnInit {
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Modifier',
       cancelButtonText: 'Annuler',
       didOpen: () => {
-        const updateForm = document.getElementById('updateForm') as HTMLFormElement;
+        const closeButton = document.getElementById('closeButton');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            Swal.close();
+          });
+        }
+        const updateForm = document.getElementById(
+          'updateForm'
+        ) as HTMLFormElement;
         const confirmButton = Swal.getConfirmButton();
-  
+
         if (confirmButton) {
           confirmButton.addEventListener('click', () => {
             const formData = new FormData(updateForm);
@@ -263,32 +270,33 @@ export class AcheteursComponent implements OnInit {
               adresse: formData.get('adresse') as string,
               NNI: formData.get('NNI') as string,
               numero_tel: formData.get('numero_tel') as string,
-              email: formData.get('email') as string
+              email: formData.get('email') as string,
             });
           });
         }
-      }
+      },
     });
   }
-  
-  
-
 
   ngOnInit(): void {
     this.noteurservice.getAcheteurs().subscribe(
-      acheteur => {
+      (acheteur) => {
         this.acheteurs = acheteur;
         this.filteredAcheteurs = acheteur;
       },
-      error => {
-        console.error('There was an error!', error);
+      (error) => {
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Il ya un erreur!',
+          icon: 'error',
+        });
       }
     );
   }
 
   search(): void {
     const searchValue = this.searchText.toLowerCase();
-    this.filteredAcheteurs = this.acheteurs.filter(acheteur =>
+    this.filteredAcheteurs = this.acheteurs.filter((acheteur) =>
       acheteur.NNI.toString().includes(searchValue)
     );
     this.noResultat = this.filteredAcheteurs.length === 0;
@@ -297,34 +305,35 @@ export class AcheteursComponent implements OnInit {
 
   delete(id: number, i: any): void {
     Swal.fire({
-      title: "Etes-vous sûr?",
-      text: "Vous ne pourrez pas revenir en arrière!",
-      icon: "warning",
+      title: 'Etes-vous sûr?',
+      text: 'Vous ne pourrez pas revenir en arrière!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Supprimer",
-      cancelButtonText:"Anuller"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Anuller',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.noteurservice.deleteAcheteur(id).subscribe(res => {
-          this.acheteurs.splice(i, 1);
-          Swal.fire({
-            title: "Success!",
-            text: "Acheteur a supprimé avec succès.",
-            icon: "success"
-          });
-        }, error => {
-          Swal.fire({
-            title: "Error!",
-            text: "La suppression a echoué.",
-            icon: "error"
-          });
-          console.error('Il ya un erreur!', error);
-        });
+        this.noteurservice.deleteAcheteur(id).subscribe(
+          (res) => {
+            this.acheteurs.splice(i, 1);
+            Swal.fire({
+              title: 'Succès!',
+              text: 'Acheteur a supprimé avec succès',
+              icon: 'success',
+            });
+          },
+          (error) => {
+            Swal.fire({
+              title: 'Erreur!',
+              text: 'La suppression a echoué',
+              icon: 'error',
+            });
+          }
+        );
       }
     });
   }
-
   
 }

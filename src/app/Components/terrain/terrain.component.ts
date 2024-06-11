@@ -39,8 +39,8 @@ export class TerrainComponent implements OnInit{
       this.noteurservice.addTerrain(this.terrainForm.value).subscribe(
         () => {
           Swal.fire({
-            title: 'Success',
-            text: 'Terrain ajouté avec succès',
+            title: 'Succès',
+            text: 'Terrain a ajouté avec succès',
             icon: 'success'
           }).then(() => {
             this.reloadTerrain(); 
@@ -48,7 +48,7 @@ export class TerrainComponent implements OnInit{
         },
         error => {
           Swal.fire({
-            title: 'Error!',
+            title: 'Erreur!',
             text: 'Ajout a échoué!',
             icon: 'error'
           });
@@ -56,8 +56,8 @@ export class TerrainComponent implements OnInit{
       );
     } else {
       Swal.fire({
-        title: 'Error!',
-        text: 'Formulaire invalide!',
+        title: 'Erreur!',
+        text: 'Veuillez remplir correctement le formulaire!',
         icon: 'error'
       });
     }
@@ -68,8 +68,8 @@ export class TerrainComponent implements OnInit{
     this.noteurservice.updateTerrain(data, id).subscribe(
       () => {
         Swal.fire({
-          title: 'Success',
-          text: 'Terrain modifié avec succès',
+          title: 'Succès',
+          text: 'Terrain a modifié avec succès',
           icon: 'success'
         }).then(() => {
           this.reloadTerrain();
@@ -77,7 +77,7 @@ export class TerrainComponent implements OnInit{
       },
       error => {
         Swal.fire({
-          title: 'Error!',
+          title: 'Erreur!',
           text: 'La modification a échoué!',
           icon: 'error'
         });
@@ -93,7 +93,11 @@ export class TerrainComponent implements OnInit{
         this.filtredTerrains = terrains;
       },
       error => {
-        console.error('Il ya un erreur!', error);
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Il ya un erreur!',
+          icon: 'error'
+        });
       }
     );
   }
@@ -105,48 +109,48 @@ export class TerrainComponent implements OnInit{
       title: 'Ajouter Terrain',
       html: `
       <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
-        <form id="terrainForm" style="padding-top: 40px;">
-          <div class="form-group p-2 mb-3">
+        <form id="terrainForm" style="font-size: 0.9rem; padding: 10px; max-height: 400px; overflow-y: auto;">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="Identifiant_terrain" class="text-start">Identifiant terrain</label>
             <input id="Identifiant_terrain" name="Identifiant_terrain" type="text" class="form-control" />
             <span id="Identifiant_terrainError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="localisation" class="text-start">Localisation</label>
             <input id="localisation" name="localisation" type="text" class="form-control" />
             <span id="localisationError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="superficie" class="text-start">Superficie</label>
             <input id="superficie" name="superficie" type="text" class="form-control" />
             <span id="superficieError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="description" class="text-start">Description</label>
             <input id="description" name="description" type="text" class="form-control" />
             <span id="descriptionError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="proprietaire" class="text-start">Proprietaire</label>
             <input id="proprietaire" name="proprietaire" type="text" class="form-control" />
             <span id="proprietaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="coordonnees_gps" class="text-start">Coordonnees gps</label>
             <input id="coordonnees_gps" name="coordonnees_gps" type="text" class="form-control" />
             <span id="coordonnees_gpsError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="prix" class="text-start">Prix</label>
             <input id="prix" name="prix" type="number" class="form-control" />
             <span id="prixError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="statut_juridique" class="text-start">Statut juridique</label>
             <input id="statut_juridique" name="statut_juridique" type="text" class="form-control" />
             <span id="statut_juridiqueError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="date_acquisition" class="text-start">Date acquisition</label>
             <input id="date_acquisition" name="date_acquisition" type="date" class="form-control" />
             <span id="date_acquisitionError" class="text-danger"></span>
@@ -155,7 +159,7 @@ export class TerrainComponent implements OnInit{
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Ajouter',
       cancelButtonText: 'Annuler',
       didOpen: () => {
@@ -188,8 +192,8 @@ export class TerrainComponent implements OnInit{
           this.addTerrain();
         } else {
           Swal.fire({
-            title: 'Error!',
-            text: 'Formulaire invalide!',
+            title: 'Erreur!',
+            text: 'Veuillez remplir correctement le formulaire!',
             icon: 'error'
           });
         }
@@ -201,48 +205,49 @@ export class TerrainComponent implements OnInit{
     Swal.fire({
       title: 'Modifier Terrain',
       html: `
-        <form id="updateForm">
-          <div class="form-group p-2 mb-3">
+      <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
+        <form id="updateForm" style="font-size: 0.9rem; padding: 10px; max-height: 400px; overflow-y: auto;">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="Identifiant_terrain" class="text-start">Identifiant Terrain</label>
             <input id="Identifiant_terrain" name="Identifiant_terrain" type="text" class="form-control" value="${terrain.Identifiant_terrain}" />
             <span id="Identifiant_terrainError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="localisation" class="text-start">Localisation</label>
             <input id="localisation" name="localisation" type="text" class="form-control" value="${terrain.localisation}" />
             <span id="localisationError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="superficie" class="text-start">Superficie</label>
             <input id="superficie" name="superficie" type="text" class="form-control" value="${terrain.superficie}" />
             <span id="superficieError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="description" class="text-start">Description</label>
             <input id="description" name="description" type="text" class="form-control" value="${terrain.description}" />
             <span id="descriptionError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="proprietaire" class="text-start">Propriétaire</label>
             <input id="proprietaire" name="proprietaire" type="text" class="form-control" value="${terrain.proprietaire}" />
             <span id="proprietaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="coordonnees_gps" class="text-start">Coordonnées GPS</label>
             <input id="coordonnees_gps" name="coordonnees_gps" type="text" class="form-control" value="${terrain.coordonnees_gps}" />
             <span id="coordonnees_gpsError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="prix" class="text-start">Prix</label>
             <input id="prix" name="prix" type="text" class="form-control" value="${terrain.prix}" />
             <span id="prixError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="statut_juridique" class="text-start">Statut Juridique</label>
             <input id="statut_juridique" name="statut_juridique" type="text" class="form-control" value="${terrain.statut_juridique}" />
             <span id="statut_juridiqueError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="date_acquisition" class="text-start">Date d'Acquisition</label>
             <input id="date_acquisition" name="date_acquisition" type="date" class="form-control" value="${terrain.date_acquisition}" />
             <span id="date_acquisitionError" class="text-danger"></span>
@@ -251,10 +256,16 @@ export class TerrainComponent implements OnInit{
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Modifier',
       cancelButtonText: 'Annuler',
       didOpen: () => {
+        const closeButton = document.getElementById('closeButton');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            Swal.close();
+          });
+        }
         const updateForm = document.getElementById('updateForm') as HTMLFormElement;
         const confirmButton = Swal.getConfirmButton();
     
@@ -285,7 +296,11 @@ export class TerrainComponent implements OnInit{
       this.filtredTerrains = t;
     },
     error =>{
-      console.log("Il y'a un erreur: ",error)
+      Swal.fire({
+        title: 'Erreur!',
+        text: 'Il ya un erreur lors de la recuperation!',
+        icon: 'error'
+      });
     }
   );
   }
@@ -315,17 +330,17 @@ export class TerrainComponent implements OnInit{
         this.noteurservice.deleteterrain(id).subscribe(res => {
           this.terrains.splice(i, 1);
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "Succès!",
+            text: "Terrain a supprimé avec succès",
             icon: "success"
           });
         }, error => {
           Swal.fire({
-            title: "Error!",
-            text: "There was an error deleting the file.",
+            title: "Erreur!",
+            text: "La suppression a echoué",
             icon: "error"
           });
-          console.error('There was an error!', error);
+          
         });
       }
     });

@@ -22,13 +22,14 @@ export class LoginComponent implements OnInit{
 
   login(){
     this.noteurservice.login(this.user).subscribe(res=>{
-      Swal.fire({
-        title: 'Succès!',
-        text: 'Bienvenue dans votre dashboard!',
-        icon: 'success'
-      }).then(() => {
-        this.router.navigate(['/dashbord']);
-      });
+      // Swal.fire({
+      //   title: 'Succès!',
+      //   text: 'Bienvenue dans votre dashboard!',
+      //   icon: 'success'
+      // }).then(() => {
+      //   this.router.navigate(['/dashbord']);
+      // });
+      this.router.navigate(['/dashbord']);
     },
     error => {
       Swal.fire({

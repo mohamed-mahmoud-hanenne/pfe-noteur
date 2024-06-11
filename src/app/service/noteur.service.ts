@@ -61,6 +61,10 @@ export class NoteurService {
     return this.http.post(`${this.api}/addtransaction`,acte);
   }
 
+  addProcuration(procuration:Procuration):Observable<any>{
+    return this.http.post(`${this.api}/addprocuration`,procuration)
+  }
+
   getAcheteurById(id:any):Observable<any>{
     let url = `${this.api}/acheteurbyId/${id}`;
     return this.http.get(url,{headers:this.httpHeaders});
@@ -96,6 +100,10 @@ export class NoteurService {
     return this.http.put<any>(`http://127.0.0.1:8000/api/updatetransaction/${transactionId}`,transactionData)
   }
 
+  updateProcuration(procurationData:any,procurationId:any):Observable<any>{
+    return this.http.put<any>(`http://127.0.0.1:8000/api/updateprocuration/${procurationId}`,procurationData);
+  }
+
   deleteAcheteur(id:number):Observable<any>{
     let url = `${this.api}/deleteacheteur/${id}`;
     return this.http.delete(url,{headers:this.httpHeaders}).pipe(
@@ -116,6 +124,11 @@ export class NoteurService {
 
   deleteActe(id:number):Observable<any>{
     let url = `${this.api}/deleteacte/${id}`;
+    return this.http.delete(url,{headers:this.httpHeaders});
+  }
+
+  deleteProcuration(id:number):Observable<any>{
+    let url = `${this.api}/deleteaprocuration/${id}`;
     return this.http.delete(url,{headers:this.httpHeaders});
   }
 

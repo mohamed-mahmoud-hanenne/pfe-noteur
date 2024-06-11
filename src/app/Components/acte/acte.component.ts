@@ -54,7 +54,11 @@ export class ActeComponent implements OnInit{
       this.filteredActe = ac
     },
     error =>{
-      console.log("Il y'a un erreur: ",error);
+      Swal.fire({
+        title: 'Erreur!',
+        text: 'Il ya un erreur lors de la recuperation!',
+        icon: 'error'
+      });
     }
   );
   this.noteurservice.getAcheteurs().subscribe(a=>{
@@ -90,8 +94,8 @@ getTerrainIdentifiant(id: number): string {
       this.noteurservice.addActe(this.acteForm.value).subscribe(
         () => {
           Swal.fire({
-            title: 'Success',
-            text: 'Acte ajouté avec succès',
+            title: 'Succès',
+            text: 'Acte a ajouté avec succès',
             icon: 'success'
           }).then(() => {
             this.reloadActe(); 
@@ -99,7 +103,7 @@ getTerrainIdentifiant(id: number): string {
         },
         error => {
           Swal.fire({
-            title: 'Error!',
+            title: 'Erreur!',
             text: 'Ajout a échoué!',
             icon: 'error'
           });
@@ -107,8 +111,8 @@ getTerrainIdentifiant(id: number): string {
       );
     } else {
       Swal.fire({
-        title: 'Error!',
-        text: 'Formulaire invalide!',
+        title: 'Erreur!',
+        text: 'Veuillez remplir correctement le formulaire!',
         icon: 'error'
       });
     }
@@ -118,8 +122,8 @@ getTerrainIdentifiant(id: number): string {
     this.noteurservice.updateTransaction(data, id).subscribe(
       () => {
         Swal.fire({
-          title: 'Success',
-          text: 'Acte modifié avec succès',
+          title: 'Succès',
+          text: 'Acte a modifié avec succès',
           icon: 'success'
         }).then(() => {
           this.reloadActe();
@@ -127,7 +131,7 @@ getTerrainIdentifiant(id: number): string {
       },
       error => {
         Swal.fire({
-          title: 'Error!',
+          title: 'Erreur!',
           text: 'La modification a échoué!',
           icon: 'error'
         });
@@ -154,57 +158,57 @@ getTerrainIdentifiant(id: number): string {
       title: 'Ajouter Acte',
       html: `
         <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
-        <form id="acteForm" style="padding-top: 40px;">
-          <div class="form-group p-2 mb-3">
+        <form id="acteForm" style="font-size: 0.9rem; padding: 10px; max-height: 450px; overflow-y: auto;">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="date_transaction">Date transaction</label>
             <input id="date_transaction" name="date_transaction" type="date" class="form-control" />
             <span id="date_transactionError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="montant">Montant</label>
             <input id="montant" name="montant" type="number" class="form-control" />
             <span id="montantError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="nom_temoin">Nom témoin</label>
             <input id="nom_temoin" name="nom_temoin" type="text" class="form-control" />
             <span id="nom_temoinError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="NNI_temoin">NNI témoin</label>
             <input id="NNI_temoin" name="NNI_temoin" type="number" class="form-control" />
             <span id="NNI_temoinError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="nom_notaire">Nom notaire</label>
             <input id="nom_notaire" name="nom_notaire" type="text" class="form-control" />
             <span id="nom_notaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="NNI_notaire">NNI notaire</label>
             <input id="NNI_notaire" name="NNI_notaire" type="number" class="form-control" />
             <span id="NNI_notaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="frais_notaire">Frais notaire</label>
             <input id="frais_notaire" name="frais_notaire" type="number" class="form-control" />
             <span id="frais_notaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="id_acheteur">Nom acheteur</label>
             <select id="id_acheteur" name="id_acheteur" class="form-select">
             ${acheteurs.map(acheteur => `<option value="${acheteur.id}">${acheteur.nom}</option>`).join('')}
           </select>
             <span id="id_acheteurError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="id_vendeur">Nom vendeur</label>
             <select id="id_vendeur" name="id_vendeur" class="form-select">
             ${vendeurs.map(vendeur => `<option value="${vendeur.id}">${vendeur.nom}</option>`).join('')}
           </select>
             <span id="id_vendeurError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="id_terrain">Identifiant terrain</label>
             <select id="id_terrain" name="id_terrain" class="form-select">
         ${terrains.map(terrain => `<option value="${terrain.id}">${terrain.Identifiant_terrain}</option>`).join('')}
@@ -215,7 +219,7 @@ getTerrainIdentifiant(id: number): string {
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Ajouter',
       cancelButtonText: 'Annuler',
       didOpen: () => {
@@ -249,8 +253,8 @@ getTerrainIdentifiant(id: number): string {
           this.addActe();
         } else {
           Swal.fire({
-            title: 'Error!',
-            text: 'Formulaire invalide!',
+            title: 'Erreur!',
+            text: 'Veuillez remplir correctement le formulaire!',
             icon: 'error'
           });
         }
@@ -262,57 +266,58 @@ getTerrainIdentifiant(id: number): string {
     Swal.fire({
       title: 'Modifier Acte',
       html: `
-        <form id="updateForm" style="height:600px">
-          <div class="form-group p-2 mb-3">
+      <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
+        <form id="updateForm" style="font-size: 0.9rem; padding: 10px; max-height: 400px; overflow-y: auto;">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="date_transaction" class="text-start">Date de Transaction</label>
             <input id="date_transaction" name="date_transaction" type="date" class="form-control" value="${acte.date_transaction}" />
             <span id="date_transactionError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="montant" class="text-start">Montant</label>
             <input id="montant" name="montant" type="number" class="form-control" value="${acte.montant}" />
             <span id="montantError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="nom_temoin" class="text-start">Nom du Témoin</label>
             <input id="nom_temoin" name="nom_temoin" type="text" class="form-control" value="${acte.nom_temoin}" />
             <span id="nom_temoinError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="NNI_temoin" class="text-start">NNI du Témoin</label>
             <input id="NNI_temoin" name="NNI_temoin" type="text" class="form-control" value="${acte.NNI_temoin}" />
             <span id="NNI_temoinError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="nom_notaire" class="text-start">Nom du Notaire</label>
             <input id="nom_notaire" name="nom_notaire" type="text" class="form-control" value="${acte.nom_notaire}" />
             <span id="nom_notaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="NNI_notaire" class="text-start">NNI du Notaire</label>
             <input id="NNI_notaire" name="NNI_notaire" type="text" class="form-control" value="${acte.NNI_notaire}" />
             <span id="NNI_notaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="frais_notaire" class="text-start">Frais de Notaire</label>
             <input id="frais_notaire" name="frais_notaire" type="number" class="form-control" value="${acte.frais_notaire}" />
             <span id="frais_notaireError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="id_acheteur" class="text-start">Nom Acheteur</label>
             <select id="id_acheteur" name="id_acheteur" class="form-select">
             ${acheteurs.map(acheteur => `<option value="${acheteur.id}">${acheteur.nom}</option>`).join('')}
           </select>
             <span id="id_acheteurError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="id_vendeur" class="text-start">Nom Vendeur</label>
             <select id="id_vendeur" name="id_vendeur" class="form-select">
             ${vendeurs.map(vendeur => `<option value="${vendeur.id}">${vendeur.nom}</option>`).join('')}
           </select>
             <span id="id_vendeurError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
             <label for="id_terrain" class="text-start">ID Terrain</label>
             <select id="id_terrain" name="id_terrain" class="form-select">
             ${terrains.map(terrain => `<option value="${terrain.id}">${terrain.Identifiant_terrain}</option>`).join('')}
@@ -323,10 +328,16 @@ getTerrainIdentifiant(id: number): string {
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Modifier',
-      cancelButtonText: 'Annuler',
+      // cancelButtonText: 'Annuler',
       didOpen: () => {
+        const closeButton = document.getElementById('closeButton');
+          if (closeButton) {
+            closeButton.addEventListener('click', () => {
+              Swal.close();
+            });
+          }
         const updateForm = document.getElementById('updateForm') as HTMLFormElement;
         const confirmButton = Swal.getConfirmButton();
     
@@ -385,17 +396,17 @@ getTerrainIdentifiant(id: number): string {
         this.noteurservice.deleteActe(id).subscribe(res => {
           this.actes.splice(i, 1);
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "Succès!",
+            text: "Acte a supprimé avec succès.",
             icon: "success"
           });
         }, error => {
           Swal.fire({
-            title: "Error!",
-            text: "There was an error deleting the file.",
+            title: "Erreur!",
+            text: "La suppression a echoué",
             icon: "error"
           });
-          console.error('There was an error!', error);
+          
         });
       }
     });

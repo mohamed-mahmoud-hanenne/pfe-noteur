@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Procuration } from 'src/app/Models/procuration';
+import { Acte } from 'src/app/Models/acte';
 
 @Component({
   selector: 'app-procuration',
@@ -29,43 +30,41 @@ export class ProcurationComponent {
     private activateroute:ActivatedRoute,
   ) {
     this.ProcurationForm = this.fb.group({
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      date_naissance: ['', Validators.required],
-      adresse: ['', Validators.required],
-      NNI: ['', [Validators.required, Validators.maxLength(10)]],
-      numero_tel: ['', [Validators.required, Validators.maxLength(10)]],
-      email: ['', [Validators.required, Validators.email]]
-    });
-
-    this.updateForm = this.fb.group({
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      date_naissance: ['', Validators.required],
-      adresse: ['', Validators.required],
-      NNI: ['', [Validators.required, Validators.maxLength(10)]],
-      numero_tel: ['', [Validators.required, Validators.maxLength(8)]],
-      email: ['', Validators.email],
+      nom_parent: ['', [Validators.required, Validators.maxLength(255)]],
+      prenom_parent: ['', [Validators.required, Validators.maxLength(255)]],
+      date_naissance_enfant: ['', Validators.required],
+      adresse_parent: ['', [Validators.required, Validators.maxLength(255)]],
+      nni_parent: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      numero_tel_parent: ['', [Validators.required, Validators.pattern(/^[2-4][0-9]{7}$/)]],
+      email_parent: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      nom_enfant: ['', [Validators.required, Validators.maxLength(255)]],
+      prenom_enfant: ['', [Validators.required, Validators.maxLength(255)]],
+      nom_gardien: ['', [Validators.required, Validators.maxLength(255)]],
+      prenom_gardien: ['', [Validators.required, Validators.maxLength(255)]],
+      numero_tel_gardien: ['', [Validators.required, Validators.pattern(/^[2-4][0-9]{7}$/)]],
+      date_voyage: ['', Validators.required],
+      destination: ['', [Validators.required, Validators.maxLength(255)]]
+  
     });
 
   }
 
 
-  addAcheteur() {
+  addProcuration() {
     if (this.ProcurationForm.valid) {
-      this.noteurservice.addAcheteur(this.ProcurationForm.value).subscribe(
+      this.noteurservice.addProcuration(this.ProcurationForm.value).subscribe(
         () => {
           Swal.fire({
-            title: 'Success',
+            title: 'Succès',
             text: 'Procuration a ajouté avec succès',
             icon: 'success'
           }).then(() => {
-            this.reloadAcheteurs(); 
+            this.reloadProcurations(); 
           });
         },
         error => {
           Swal.fire({
-            title: 'Error!',
+            title: 'Erreur!',
             text: 'Ajout a échoué!',
             icon: 'error'
           });
@@ -73,27 +72,27 @@ export class ProcurationComponent {
       );
     } else {
       Swal.fire({
-        title: 'Error!',
-        text: 'Formulaire invalide!',
+        title: 'Erreur!',
+        text: 'Veuillez remplir correctement le formulaire!',
         icon: 'error'
       });
     }
   }
 
-  updateAcheteur(id: number, data: any) {
-    this.noteurservice.updateAcheteur(data, id).subscribe(
+  updateProcuration(id: number, data: any) {
+    this.noteurservice.updateProcuration(data, id).subscribe(
       () => {
         Swal.fire({
-          title: 'Success',
-          text: 'Acheteur modifié avec succès',
+          title: 'Succès',
+          text: 'Procuration a modifié avec succès',
           icon: 'success'
         }).then(() => {
-          this.reloadAcheteurs();
+          this.reloadProcurations();
         });
       },
       error => {
         Swal.fire({
-          title: 'Error!',
+          title: 'Erreur!',
           text: 'La modification a échoué!',
           icon: 'error'
         });
@@ -102,14 +101,18 @@ export class ProcurationComponent {
   }
   
   
-  reloadAcheteurs() {
+  reloadProcurations() {
     this.noteurservice.getProcurations().subscribe(
       procurations => {
         this.Procurations = procurations;
         this.filteredProcuration = procurations;
       },
       error => {
-        console.error('There was an error!', error);
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Il ya un erreur!',
+          icon: 'error'
+        });
       }
     );
   }
@@ -117,44 +120,79 @@ export class ProcurationComponent {
 
   openFormAlert() {
     Swal.fire({
-      title: 'Ajouter Acheteur',
+      title: 'Ajouter Procuration',
       html: `
         <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
-        <form id="acheteurForm">
-          <div class="form-group p-2 mb-3">
-            <label for="nom" class="text-start">Nom</label>
-            <input id="nom" name="nom" type="text" class="form-control" />
-            <span id="nomError" class="text-danger"></span>
+        <form id="infoForm" style="font-size: 0.9rem; padding: 10px; max-height: 400px; overflow-y: auto;">
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="nom_parent" class="text-start">Nom Parent</label>
+            <input id="nom_parent" name="nom_parent" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="nom_parentError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
-            <label for="prenom" class="text-start">Prenom</label>
-            <input id="prenom" name="prenom" type="text" class="form-control" />
-            <span id="prenomError" class="text-danger"></span>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="prenom_parent" class="text-start">Prénom Parent</label>
+            <input id="prenom_parent" name="prenom_parent" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="prenom_parentError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
-            <label for="date_naissance" class="text-start">Date de naissance</label>
-            <input id="date_naissance" name="date_naissance" type="date" class="form-control" />
-            <span id="date_naissanceError" class="text-danger"></span>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="date_naissance_enfant" class="text-start">Date de Naissance Enfant</label>
+            <input id="date_naissance_enfant" name="date_naissance_enfant" type="date" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="date_naissance_enfantError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
-            <label for="adresse" class="text-start">Adresse</label>
-            <input id="adresse" name="adresse" type="text" class="form-control" />
-            <span id="adresseError" class="text-danger"></span>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="adresse_parent" class="text-start">Adresse Parent</label>
+            <input id="adresse_parent" name="adresse_parent" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="adresse_parentError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
-            <label for="NNI" class="text-start">NNI</label>
-            <input id="NNI" name="NNI" type="text" class="form-control" />
-            <span id="NNIError" class="text-danger"></span>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="nni_parent" class="text-start">NNI Parent</label>
+            <input id="nni_parent" name="nni_parent" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="nni_parentError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
-            <label for="numero_tel" class="text-start">Téléphone</label>
-            <input id="numero_tel" name="numero_tel" type="tel" class="form-control" />
-            <span id="numero_telError" class="text-danger"></span>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="numero_tel_parent" class="text-start">Téléphone Parent</label>
+            <input id="numero_tel_parent" name="numero_tel_parent" type="tel" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="numero_tel_parentError" class="text-danger"></span>
           </div>
-          <div class="form-group p-2 mb-3">
-            <label for="email" class="text-start">Email</label>
-            <input id="email" name="email" type="email" class="form-control" />
-            <span id="emailError" class="text-danger"></span>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="email_parent" class="text-start">Email Parent</label>
+            <input id="email_parent" name="email_parent" type="email" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="email_parentError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="nom_enfant" class="text-start">Nom Enfant</label>
+            <input id="nom_enfant" name="nom_enfant" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="nom_enfantError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="prenom_enfant" class="text-start">Prénom Enfant</label>
+            <input id="prenom_enfant" name="prenom_enfant" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="prenom_enfantError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="nom_gardien" class="text-start">Nom Gardien</label>
+            <input id="nom_gardien" name="nom_gardien" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="nom_gardienError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="prenom_gardien" class="text-start">Prénom Gardien</label>
+            <input id="prenom_gardien" name="prenom_gardien" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="prenom_gardienError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="numero_tel_gardien" class="text-start">Téléphone Gardien</label>
+            <input id="numero_tel_gardien" name="numero_tel_gardien" type="tel" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="numero_tel_gardienError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="date_voyage" class="text-start">Date Voyage</label>
+            <input id="date_voyage" name="date_voyage" type="date" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="date_voyageError" class="text-danger"></span>
+          </div>
+          <div class="form-group mb-3" style="margin-bottom: 10px;">
+            <label for="destination" class="text-start">Destination</label>
+            <input id="destination" name="destination" type="text" class="form-control form-control-sm" style="width: 100%;" />
+            <span id="destinationError" class="text-danger"></span>
           </div>
         </form>
       `,
@@ -170,16 +208,23 @@ export class ProcurationComponent {
         }
       },
       preConfirm: () => {
-        const form = document.getElementById('acheteurForm') as HTMLFormElement;
+        const form = document.getElementById('infoForm') as HTMLFormElement;
         const formData = new FormData(form);
         return {
-          nom: formData.get('nom') as string,
-          prenom: formData.get('prenom') as string,
-          date_naissance: formData.get('date_naissance') as string,
-          adresse: formData.get('adresse') as string,
-          NNI: formData.get('NNI') as string,
-          numero_tel: formData.get('numero_tel') as string,
-          email: formData.get('email') as string
+          nom_parent: formData.get('nom_parent') as string,
+          prenom_parent: formData.get('prenom_parent') as string,
+          date_naissance_enfant: formData.get('date_naissance_enfant') as string,
+          adresse_parent: formData.get('adresse_parent') as string,
+          nni_parent: formData.get('nni_parent') as string,
+          numero_tel_parent: formData.get('numero_tel_parent') as string,
+          email_parent: formData.get('email_parent') as string,
+          nom_enfant: formData.get('nom_enfant') as string,
+          prenom_enfant: formData.get('prenom_enfant') as string,
+          nom_gardien: formData.get('nom_gardien') as string,
+          prenom_gardien: formData.get('prenom_gardien') as string,
+          numero_tel_gardien: formData.get('numero_tel_gardien') as string,
+          date_voyage: formData.get('date_voyage') as string,
+          destination: formData.get('destination') as string
         };
       }
     }).then((result) => {
@@ -187,13 +232,13 @@ export class ProcurationComponent {
         // Mettez à jour le formulaire Angular avec les valeurs du formulaire SweetAlert2
         this.ProcurationForm.patchValue(result.value);
   
-        // Vérifiez si le formulaire Angular est valide avant d'appeler addAcheteur
+        // Vérifiez si le formulaire Angular est valide avant d'appeler addProcuration
         if (this.ProcurationForm.valid) {
-          this.addAcheteur();
+          this.addProcuration();
         } else {
           Swal.fire({
-            title: 'Error!',
-            text: 'Formulaire invalide!',
+            title: 'Erreur!',
+            text: 'Veuillez remplir correctement le formulaire!',
             icon: 'error'
           });
         }
@@ -202,75 +247,124 @@ export class ProcurationComponent {
   }
   
   
-  // openUpdateAlert(procuration: Procuration) {
-  //   Swal.fire({
-  //     title: 'Modifier Acheteur',
-  //     html: `
-  //       <form id="updateForm">
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="nom" class="text-start">Nom</label>
-  //           <input id="nom" name="nom" type="text" class="form-control" value="${procuration.}" />
-  //           <span id="nomError" class="text-danger"></span>
-  //         </div>
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="prenom" class="text-start">Prenom</label>
-  //           <input id="prenom" name="prenom" type="text" class="form-control" value="${acheteur.prenom}" />
-  //           <span id="prenomError" class="text-danger"></span>
-  //         </div>
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="date_naissance" class="text-start">Date de naissance</label>
-  //           <input id="date_naissance" name="date_naissance" type="date" class="form-control" value="${acheteur.date_naissance}" />
-  //           <span id="date_naissanceError" class="text-danger"></span>
-  //         </div>
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="adresse" class="text-start">Adresse</label>
-  //           <input id="adresse" name="adresse" type="text" class="form-control" value="${acheteur.adresse}" />
-  //           <span id="adresseError" class="text-danger"></span>
-  //         </div>
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="NNI" class="text-start">NNI</label>
-  //           <input id="NNI" name="NNI" type="text" class="form-control" value="${acheteur.NNI}" />
-  //           <span id="NNIError" class="text-danger"></span>
-  //         </div>
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="numero_tel" class="text-start">Téléphone</label>
-  //           <input id="numero_tel" name="numero_tel" type="tel" class="form-control" value="${acheteur.numero_tel}" />
-  //           <span id="numero_telError" class="text-danger"></span>
-  //         </div>
-  //         <div class="form-group p-2 mb-3">
-  //           <label for="email" class="text-start">Email</label>
-  //           <input id="email" name="email" type="email" class="form-control" value="${acheteur.email}" />
-  //           <span id="emailError" class="text-danger"></span>
-  //         </div>
-  //       </form>
-  //     `,
-  //     focusConfirm: false,
-  //     customClass: 'swal2-wide',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Modifier',
-  //     cancelButtonText: 'Annuler',
-  //     didOpen: () => {
-  //       const updateForm = document.getElementById('updateForm') as HTMLFormElement;
-  //       const confirmButton = Swal.getConfirmButton();
-  
-  //       if (confirmButton) {
-  //         confirmButton.addEventListener('click', () => {
-  //           const formData = new FormData(updateForm);
-  //           this.updateAcheteur(acheteur.id, {
-  //             nom: formData.get('nom') as string,
-  //             prenom: formData.get('prenom') as string,
-  //             date_naissance: formData.get('date_naissance') as string,
-  //             adresse: formData.get('adresse') as string,
-  //             NNI: formData.get('NNI') as string,
-  //             numero_tel: formData.get('numero_tel') as string,
-  //             email: formData.get('email') as string
-  //           });
-  //         });
-  //       }
-  //     }
-  //   });
-  // }
-  
+  openUpdateAlert(Procuration: Procuration) {
+    Swal.fire({
+        title: 'Modifier Procuration',
+        html: `
+        <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
+          <form id="updateForm" style="font-size: 0.9rem; padding: 10px; max-height: 400px; overflow-y: auto;">
+            <div class="form-group p-2 mb-3">
+              <label for="nom_parent" class="text-start">Nom Parent</label>
+              <input id="nom_parent" name="nom_parent" type="text" class="form-control" value="${Procuration.nom_parent}" />
+              <span id="nom_parentError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="prenom_parent" class="text-start">Prenom Parent</label>
+              <input id="prenom_parent" name="prenom_parent" type="text" class="form-control" value="${Procuration.prenom_parent}" />
+              <span id="prenom_parentError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="date_naissance_enfant" class="text-start">Date de naissance Enfant</label>
+              <input id="date_naissance_enfant" name="date_naissance_enfant" type="date" class="form-control" value="${Procuration.date_naissance_enfant}" />
+              <span id="date_naissance_enfantError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="adresse_parent" class="text-start">Adresse Parent</label>
+              <input id="adresse_parent" name="adresse_parent" type="text" class="form-control" value="${Procuration.adresse_parent}" />
+              <span id="adresse_parentError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="nni_parent" class="text-start">NNI Parent</label>
+              <input id="nni_parent" name="nni_parent" type="text" class="form-control" value="${Procuration.nni_parent}" />
+              <span id="nni_parentError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="numero_tel_parent" class="text-start">Téléphone Parent</label>
+              <input id="numero_tel_parent" name="numero_tel_parent" type="tel" class="form-control" value="${Procuration.numero_tel_parent}" />
+              <span id="numero_tel_parentError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="email_parent" class="text-start">Email Parent</label>
+              <input id="email_parent" name="email_parent" type="email" class="form-control" value="${Procuration.email_parent}" />
+              <span id="email_parentError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="nom_enfant" class="text-start">Nom Enfant</label>
+              <input id="nom_enfant" name="nom_enfant" type="text" class="form-control" value="${Procuration.nom_enfant}" />
+              <span id="nom_enfantError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="prenom_enfant" class="text-start">Prenom Enfant</label>
+              <input id="prenom_enfant" name="prenom_enfant" type="text" class="form-control" value="${Procuration.prenom_enfant}" />
+              <span id="prenom_enfantError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="nom_gardien" class="text-start">Nom Gardien</label>
+              <input id="nom_gardien" name="nom_gardien" type="text" class="form-control" value="${Procuration.nom_gardien}" />
+              <span id="nom_gardienError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="prenom_gardien" class="text-start">Prenom Gardien</label>
+              <input id="prenom_gardien" name="prenom_gardien" type="text" class="form-control" value="${Procuration.prenom_gardien}" />
+              <span id="prenom_gardienError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="numero_tel_gardien" class="text-start">Téléphone Gardien</label>
+              <input id="numero_tel_gardien" name="numero_tel_gardien" type="tel" class="form-control" value="${Procuration.numero_tel_gardien}" />
+              <span id="numero_tel_gardienError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="date_voyage" class="text-start">Date Voyage</label>
+              <input id="date_voyage" name="date_voyage" type="date" class="form-control" value="${Procuration.date_voyage}" />
+              <span id="date_voyageError" class="text-danger"></span>
+            </div>
+            <div class="form-group p-2 mb-3">
+              <label for="destination" class="text-start">Destination</label>
+              <input id="destination" name="destination" type="text" class="form-control" value="${Procuration.destination}" />
+              <span id="destinationError" class="text-danger"></span>
+            </div>
+          </form>
+        `,
+        focusConfirm: false,
+        customClass: 'swal2-wide',
+        showCancelButton: false,
+        confirmButtonText: 'Modifier',
+        cancelButtonText: 'Annuler',
+        didOpen: () => {
+            const closeButton = document.getElementById('closeButton');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    Swal.close();
+                });
+            }
+            const updateForm = document.getElementById('updateForm') as HTMLFormElement;
+            const confirmButton = Swal.getConfirmButton();
+
+            if (confirmButton) {
+                confirmButton.addEventListener('click', () => {
+                    const formData = new FormData(updateForm);
+                    this.updateProcuration(Procuration.id, {
+                        nom_parent: formData.get('nom_parent') as string,
+                        prenom_parent: formData.get('prenom_parent') as string,
+                        date_naissance_enfant: formData.get('date_naissance_enfant') as string,
+                        adresse_parent: formData.get('adresse_parent') as string,
+                        nni_parent: formData.get('nni_parent') as string,
+                        numero_tel_parent: formData.get('numero_tel_parent') as string,
+                        email_parent: formData.get('email_parent') as string,
+                        nom_enfant: formData.get('nom_enfant') as string,
+                        prenom_enfant: formData.get('prenom_enfant') as string,
+                        nom_gardien: formData.get('nom_gardien') as string,
+                        prenom_gardien: formData.get('prenom_gardien') as string,
+                        numero_tel_gardien: formData.get('numero_tel_gardien') as string,
+                        date_voyage: formData.get('date_voyage') as string,
+                        destination: formData.get('destination') as string,
+                    });
+                });
+            }
+        },
+    });
+}
+
   
 
 
@@ -281,7 +375,11 @@ export class ProcurationComponent {
         this.filteredProcuration = procuration;
       },
       error => {
-        console.error('There was an error!', error);
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Il ya un erreur!',
+          icon: 'error'
+        });
       }
     );
   }
@@ -307,23 +405,27 @@ export class ProcurationComponent {
       cancelButtonText:"Anuller"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.noteurservice.deleteAcheteur(id).subscribe(res => {
+        this.noteurservice.deleteProcuration(id).subscribe(res => {
           this.Procurations.splice(i, 1);
           Swal.fire({
-            title: "Success!",
-            text: "Acheteur a supprimé avec succès.",
+            title: "Succès!",
+            text: "Procuration a supprimé avec succès.",
             icon: "success"
           });
         }, error => {
           Swal.fire({
-            title: "Error!",
+            title: "Erreur!",
             text: "La suppression a echoué.",
             icon: "error"
           });
-          console.error('Il ya un erreur!', error);
+          
         });
       }
     });
   }
 
+
+
 }
+
+

@@ -50,8 +50,8 @@ export class VendeursComponent implements OnInit{
       this.noteurservice.addVendeur(this.vendeurForm.value).subscribe(
         () => {
           Swal.fire({
-            title: 'Success',
-            text: 'Vendeur ajouté avec succès',
+            title: 'Succès',
+            text: 'Vendeur a ajouté avec succès',
             icon: 'success'
           }).then(() => {
             this.reloadVendeurs(); 
@@ -59,7 +59,7 @@ export class VendeursComponent implements OnInit{
         },
         error => {
           Swal.fire({
-            title: 'Error!',
+            title: 'Erreur!',
             text: 'Ajout a échoué!',
             icon: 'error'
           });
@@ -67,8 +67,8 @@ export class VendeursComponent implements OnInit{
       );
     } else {
       Swal.fire({
-        title: 'Error!',
-        text: 'Formulaire invalide!',
+        title: 'Erreur!',
+        text: 'Veuillez remplir correctement le formulaire!',
         icon: 'error'
       });
     }
@@ -78,8 +78,8 @@ export class VendeursComponent implements OnInit{
     this.noteurservice.updateVendeur(data, id).subscribe(
       () => {
         Swal.fire({
-          title: 'Success',
-          text: 'Vendeur modifié avec succès',
+          title: 'Succès',
+          text: 'Vendeur a modifié avec succès',
           icon: 'success'
         }).then(() => {
           this.reloadVendeurs();
@@ -87,7 +87,7 @@ export class VendeursComponent implements OnInit{
       },
       error => {
         Swal.fire({
-          title: 'Error!',
+          title: 'Erreur!',
           text: 'La modification a échoué!',
           icon: 'error'
         });
@@ -102,7 +102,11 @@ export class VendeursComponent implements OnInit{
         this.filteredVendeurs = vendeurs;
       },
       error => {
-        console.error('Il ya un erreur!', error);
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Il ya un erreur!',
+          icon: 'error'
+        });
       }
     );
   }
@@ -184,8 +188,8 @@ export class VendeursComponent implements OnInit{
           this.addVendeur();
         } else {
           Swal.fire({
-            title: 'Error!',
-            text: 'Formulaire invalide!',
+            title: 'Erreur!',
+            text: 'Veuillez remplir correctement le formulaire!',
             icon: 'error'
           });
         }
@@ -197,6 +201,7 @@ export class VendeursComponent implements OnInit{
     Swal.fire({
       title: 'Modifier Vendeur',
       html: `
+      <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
         <form id="updateForm">
           <div class="form-group p-2 mb-3">
             <label for="nom" class="text-start">Nom</label>
@@ -237,10 +242,16 @@ export class VendeursComponent implements OnInit{
       `,
       focusConfirm: false,
       customClass: 'swal2-wide',
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Modifier',
       cancelButtonText: 'Annuler',
       didOpen: () => {
+        const closeButton = document.getElementById('closeButton');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            Swal.close();
+          });
+        }
         const updateForm = document.getElementById('updateForm') as HTMLFormElement;
         const confirmButton = Swal.getConfirmButton();
   
@@ -268,7 +279,11 @@ export class VendeursComponent implements OnInit{
       this.filteredVendeurs = v;
     },
     error =>{
-      console.log('Il ya un erreur', error);
+      Swal.fire({
+        title: 'Erreur!',
+        text: 'Il ya un erreur!',
+        icon: 'error'
+      });
     }
   );
   }
@@ -279,7 +294,6 @@ export class VendeursComponent implements OnInit{
       vendeur.NNI.toString().includes(searchValue)
     );
     this.noResultat = this.filteredVendeurs.length ===0;
-    this.searchText = '';
   }
   
 
@@ -299,17 +313,17 @@ export class VendeursComponent implements OnInit{
         this.noteurservice.deleteVendeur(id).subscribe(res => {
           this.vendeurs.splice(i, 1);
           Swal.fire({
-            title: "Success!",
+            title: "Succès!",
             text: "Vendeur a supprimé avec succès.",
             icon: "success"
           });
         }, error => {
           Swal.fire({
-            title: "Error!",
+            title: "Erreur!",
             text: "La suppression a echoué.",
             icon: "error"
           });
-          console.error('Il ya un erreur!', error);
+        
         });
       }
     });

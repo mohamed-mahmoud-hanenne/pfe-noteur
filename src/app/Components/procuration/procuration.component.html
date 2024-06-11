@@ -73,8 +73,9 @@
                         <td>{{procuration.date_voyage}}</td>
                         <td>{{procuration.destination}}</td>
                         <td>
-                            <a class="edit" data-toggle="modal" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a class="edit" data-toggle="modal" (click)="openUpdateAlert(procuration)"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a class="delete" data-toggle="modal" (click)="delete(procuration.id,i)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <!-- <a class="download" style="display: inline-block;" (click)="downloadActe(acte)"><i class="material-icons" data-toggle="tooltip" title="Download">&#xE2C0;</i></a> -->
                         </td>
                     </tr>
                  
