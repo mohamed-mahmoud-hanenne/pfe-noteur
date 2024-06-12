@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit{
       // }).then(() => {
       //   this.router.navigate(['/dashbord']);
       // });
-      this.router.navigate(['/dashbord']);
+      this.router.navigate(['/dashboard-admin']);
     },
     error => {
       Swal.fire({

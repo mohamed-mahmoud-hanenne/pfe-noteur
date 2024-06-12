@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Procuration } from 'src/app/Models/procuration';
 import { Acte } from 'src/app/Models/acte';
+import { jsPDF } from 'jspdf';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-procuration',
@@ -46,6 +48,26 @@ export class ProcurationComponent {
       destination: ['', [Validators.required, Validators.maxLength(255)]]
   
     });
+
+    this.updateForm = this.fb.group({
+      nom_parent: ['', [Validators.required, Validators.maxLength(255)]],
+      prenom_parent: ['', [Validators.required, Validators.maxLength(255)]],
+      date_naissance_enfant: ['', Validators.required],
+      adresse_parent: ['', [Validators.required, Validators.maxLength(255)]],
+      nni_parent: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      numero_tel_parent: ['', [Validators.required, Validators.pattern(/^[2-4][0-9]{7}$/)]],
+      email_parent: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+      nom_enfant: ['', [Validators.required, Validators.maxLength(255)]],
+      prenom_enfant: ['', [Validators.required, Validators.maxLength(255)]],
+      nom_gardien: ['', [Validators.required, Validators.maxLength(255)]],
+      prenom_gardien: ['', [Validators.required, Validators.maxLength(255)]],
+      numero_tel_gardien: ['', [Validators.required, Validators.pattern(/^[2-4][0-9]{7}$/)]],
+      date_voyage: ['', Validators.required],
+      destination: ['', [Validators.required, Validators.maxLength(255)]]
+  
+    });
+
+    
 
   }
 
@@ -387,7 +409,7 @@ export class ProcurationComponent {
   search(): void {
     const searchValue = this.searchText.toLowerCase();
     this.filteredProcuration = this.Procurations.filter(procuration =>
-      procuration.id.toString().includes(searchValue)
+      procuration.destination.toString().includes(searchValue)
     );
     this.noResultat = this.filteredProcuration.length === 0;
     // this.searchText = '';
@@ -423,6 +445,81 @@ export class ProcurationComponent {
       }
     });
   }
+
+
+
+  async downloadProcuration(procuration: Procuration): Promise<void> {
+    const doc = new jsPDF();
+
+    // En-tête du PDF
+    doc.setFontSize(16);
+    doc.setFont('Helvetica', 'bold');
+    doc.text('Nom Notaire: Mohamed Mahmoud', 105, 20, { align: 'center' });
+    doc.setFontSize(12);
+    doc.setFont('Helvetica', 'normal');
+    doc.text('Adresse Notaire: Tevragh Zeina', 105, 30, { align: 'center' });
+    doc.text('Tél: 30736330', 105, 35, { align: 'center' });
+    doc.text('Email: medmahmoud@gmail.com', 105, 40, { align: 'center' });
+
+    // Titre de la procuration
+    doc.setFontSize(18);
+    doc.setFont('Helvetica', 'bold');
+    doc.setTextColor(0, 122, 255);
+    doc.text('Procuration Enfant mineur', 105, 80, { align: 'center' });
+
+    // Détails de la procuration
+    doc.setFontSize(12);
+    doc.setFont('Helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+
+    const procurationDetails = `
+      Je soussigné, Mohamed Mahmoud, notaire inscrit sous le numéro d'identification nationale 
+      4522884379
+      atteste par la présente que ${procuration.nom_parent} ${procuration.prenom_parent} (NNI: ${procuration.nni_parent}) donne procuration à 
+      ${procuration.nom_gardien} ${procuration.prenom_gardien} (téléphone: ${procuration.numero_tel_gardien}) pour s'occuper de leur enfant 
+      ${procuration.nom_enfant} ${procuration.prenom_enfant}, né(e) le ${procuration.date_naissance_enfant}, pendant leur voyage prévu du ${procuration.date_voyage} 
+      à destination de ${procuration.destination}.
+      Les coordonnées du parent sont :
+      Adresse: ${procuration.adresse_parent},
+      Téléphone: ${procuration.numero_tel_parent},
+      Email: ${procuration.email_parent}.
+
+
+      Cette procuration est délivrée pour servir et valoir ce que de droit.
+          `;
+
+    const splitText = doc.splitTextToSize(procurationDetails, 180);
+    doc.text(splitText, 15, 100);
+
+    // Pied de page
+    const date = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Fait à Nouakchott, le ${date}.`, 200, 200, { align: 'right' });
+    doc.setFont('Helvetica', 'bold');
+    doc.setTextColor(255, 165, 0);
+    doc.text(`Mohamed Mahmoud`, 200, 205, { align: 'right' });
+    doc.setFont('Helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Notaire`, 200, 210, { align: 'right' });
+
+    const qrCodeData = `
+    Parent: ${procuration.nom_parent} ${procuration.prenom_parent}, NNI: ${procuration.nni_parent}
+    Gardien: ${procuration.nom_gardien} ${procuration.prenom_gardien}, NNI: ${procuration.numero_tel_gardien}
+    Enfant: ${procuration.nom_enfant} ${procuration.prenom_enfant}, Date de naissance: ${procuration.date_naissance_enfant}
+    Date de voyage: ${procuration.date_voyage}, Destination: ${procuration.destination}
+    Adresse Parent: ${procuration.adresse_parent}, Téléphone: ${procuration.numero_tel_parent}, Email: ${procuration.email_parent}
+   
+    `;
+
+    const qrCodeUrl = await QRCode.toDataURL(qrCodeData);
+
+    doc.text("Scanner pour plus d'informations", 105, 220, { align: 'center' });
+    doc.addImage(qrCodeUrl, 'JPEG', 80, 230, 50, 50);
+
+    doc.save(`procuration_${procuration.id}.pdf`);
+}
+
 
 
 

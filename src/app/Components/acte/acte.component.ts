@@ -158,9 +158,9 @@ getTerrainIdentifiant(id: number): string {
       title: 'Ajouter Acte',
       html: `
         <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
-        <form id="acteForm" style="font-size: 0.9rem; padding: 10px; max-height: 450px; overflow-y: auto;">
+        <form id="acteForm" style="font-size: 0.9rem; padding: 10px; max-height: 480px; overflow-y: auto;">
           <div class="form-group mb-3" style="margin-bottom: 10px;">
-            <label for="date_transaction">Date transaction</label>
+            <label for="date_transaction">Date acte</label>
             <input id="date_transaction" name="date_transaction" type="date" class="form-control" />
             <span id="date_transactionError" class="text-danger"></span>
           </div>
@@ -269,7 +269,7 @@ getTerrainIdentifiant(id: number): string {
       <button id="closeButton" type="button" class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; border: none; background: none; cursor: pointer;">&times;</button>
         <form id="updateForm" style="font-size: 0.9rem; padding: 10px; max-height: 400px; overflow-y: auto;">
           <div class="form-group mb-3" style="margin-bottom: 10px;">
-            <label for="date_transaction" class="text-start">Date de Transaction</label>
+            <label for="date_transaction" class="text-start">Date acte</label>
             <input id="date_transaction" name="date_transaction" type="date" class="form-control" value="${acte.date_transaction}" />
             <span id="date_transactionError" class="text-danger"></span>
           </div>
@@ -367,8 +367,11 @@ getTerrainIdentifiant(id: number): string {
   
   search():void{
     const searchValue = this.searchText.toLowerCase();
-    this.filteredActe = this.actes.filter(acte=>
-      acte.id.toString().includes(searchValue)
+    this.filteredActe = this.actes.filter(acte=>{
+      const terrain = this.terrainsinacte.find(t => t.id === acte.id_terrain);  
+      return terrain ? terrain.Identifiant_terrain.toLowerCase().includes(searchValue) : false;
+    }
+    
     );
     this.noResultat = this.filteredActe.length === 0;
     // this.searchText = '';
@@ -513,5 +516,7 @@ getTerrainIdentifiant(id: number): string {
 
     doc.save(`acte_${acte.id}.pdf`);
   }
+
+  
 }
 
