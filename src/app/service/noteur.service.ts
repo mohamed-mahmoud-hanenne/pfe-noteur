@@ -15,6 +15,8 @@ export class NoteurService {
   
  private api = 'http://127.0.0.1:8000/api';
  httpHeaders = new HttpHeaders().set('Content-Type','application/json')
+ private loggedIn = false;
+
 
   constructor(private http: HttpClient) { }
 
@@ -135,6 +137,19 @@ export class NoteurService {
  login(userlogin:UserLogin):Observable<any>{
   return this.http.post(`${this.api}/login`,userlogin);
  }
+
+ logout(): void {
+  this.loggedIn = false;
+  localStorage.removeItem('token');
+}
+
+isLoggedIn(): boolean {
+  return this.loggedIn || localStorage.getItem('token') !== null;
+}
+
+setLoggedIn(value: boolean): void {
+  this.loggedIn = value;
+}
 
  register(usersignup:Usersignup):Observable<any>{
   return this.http.post(`${this.api}/register`,usersignup)

@@ -1,7 +1,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Logo</a>
+        <a class="navbar-brand ps-3" href="index.html">Notaire</a>
         <!-- Sidebar Toggle-->
         <div class="d-flex ms-auto">
             <button class="btn btn-link btn-sm me-4 custom-btn" id="sidebarToggle" href="#!">
@@ -33,7 +33,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Dashboard Admin</div>
-                        <a class="nav-link">
+                        <a class="nav-link" routerLink="accueil-admin">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             Accueil
                         </a>
@@ -46,7 +46,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" routerLink="acheteurs" routerLinkActive="active">Acheteurs</a>
-                                <a class="nav-link" routerLink="/vendeurs" routerLinkActive="active">Vendeurs</a>
+                                <a class="nav-link" routerLink="vendeurs" routerLinkActive="active">Vendeurs</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -56,8 +56,8 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link" routerLink="/terrain" routerLinkActive="active">Terrain</a>
-                                <a class="nav-link" routerLink="/acte" routerLinkActive="active">Acte</a>
+                                <a class="nav-link" routerLink="terrains" routerLinkActive="active">Terrain</a>
+                                <a class="nav-link" routerLink="acte" routerLinkActive="active">Acte</a>
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 </div>
                                
@@ -74,7 +74,7 @@
                         </a>
                         <div class="collapse" id="collapseLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" routerLink="/procuration-enfant" routerLinkActive="active">Procuration Enfant</a>
+                                <a class="nav-link" routerLink="procuration-enfant" routerLinkActive="active">Procuration Enfant</a>
                                 <a class="nav-link" routerLink="procurat" routerLinkActive="active">Procuration Terrain</a>
                             </nav>
                         </div>

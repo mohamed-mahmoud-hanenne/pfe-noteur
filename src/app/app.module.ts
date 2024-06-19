@@ -18,6 +18,7 @@ import { SigninComponent } from './Components/signin/signin.component';
 import { SericesComponent } from './Components/serices/serices.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { AboutComponent } from './Components/about/about.component';
+import { AccueilAdminComponent } from './Components/accueil-admin/accueil-admin.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { AboutComponent } from './Components/about/about.component';
     SigninComponent,
     SericesComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
     
   ],
   imports: [

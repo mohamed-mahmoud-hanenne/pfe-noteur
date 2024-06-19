@@ -20,25 +20,19 @@ export class LoginComponent implements OnInit{
 
   }
 
-  login(){
-    this.noteurservice.login(this.user).subscribe(res=>{
-      // Swal.fire({
-      //   title: 'Succès!',
-      //   text: 'Bienvenue dans votre dashboard!',
-      //   icon: 'success'
-      // }).then(() => {
-      //   this.router.navigate(['/dashbord']);
-      // });
+  login() {
+    this.noteurservice.login(this.user).subscribe(res => {
+      this.noteurservice.setLoggedIn(true);
+      localStorage.setItem('token', res.token); // Store token in localStorage
       this.router.navigate(['/dashboard-admin']);
     },
     error => {
       Swal.fire({
-        title: 'Connexion echoué!',
-        text: 'Email ou mot de passe est incorrect!',
+        title: 'Connexion échouée!',
+        text: 'Email ou mot de passe incorrect!',
         icon: 'error'
       });
-    }
-  )
+    });
   }
 
  
