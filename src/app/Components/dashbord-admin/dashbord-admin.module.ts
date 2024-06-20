@@ -11,4 +11,4 @@ import { DashboardAdminRoutingModule } from './dashboard-routing.module';
     DashboardAdminRoutingModule
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {}

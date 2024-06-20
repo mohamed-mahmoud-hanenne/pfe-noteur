@@ -30,6 +30,7 @@ import { AccueilAdminComponent } from './Components/accueil-admin/accueil-admin.
     SericesComponent,
     ContactComponent,
     AboutComponent,
+    AccueilAdminComponent
     
   ],
   imports: [

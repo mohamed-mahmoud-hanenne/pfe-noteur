@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-accueil-admin',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./accueil-admin.component.scss']
 })
 export class AccueilAdminComponent {
+
+ 
 
 }

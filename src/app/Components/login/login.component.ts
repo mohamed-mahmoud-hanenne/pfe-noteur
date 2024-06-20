@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit{
     this.noteurservice.login(this.user).subscribe(res => {
       this.noteurservice.setLoggedIn(true);
       localStorage.setItem('token', res.token); // Store token in localStorage
-      this.router.navigate(['/dashboard-admin']);
+      this.router.navigate(['/dashboard-admin/accueil-admin']);
     },
     error => {
       Swal.fire({

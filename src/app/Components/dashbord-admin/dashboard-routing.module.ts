@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: DashbordAdminComponent,
     children: [
-      { path: 'accueil-admin', loadChildren: () => import('../accueil-admin/accueil-admin.module').then(m => m.AccueilAdminModule) },
+      { path: 'accueil-admin', loadChildren: () => import('../accueil-admin/accueil-admin.module').then(m => m.AccueilModule) },
       { path: 'acheteurs', loadChildren: () => import('../acheteurs/acheteurs.module').then(m => m.AcheteursModule) },
       { path: 'vendeurs', loadChildren: () => import('../vendeurs/vendeurs.module').then(m => m.VendeursModule) },
       { path: 'terrains', loadChildren: () => import('../terrain/terrains.module').then(m => m.TerrainsModule) },

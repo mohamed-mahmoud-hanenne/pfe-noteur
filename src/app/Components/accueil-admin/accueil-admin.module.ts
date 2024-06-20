@@ -7,7 +7,7 @@ import { AccueilAdminComponent } from './accueil-admin.component';
 
 
 @NgModule({
-  declarations: [AccueilAdminComponent],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
@@ -16,4 +16,4 @@ import { AccueilAdminComponent } from './accueil-admin.component';
     ])
   ]
 })
-export class AccueilAdminModule {}
+export class AccueilModule {}
