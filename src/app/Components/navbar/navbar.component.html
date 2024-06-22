@@ -1,30 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
-  <div class="container px-5">
-      <a class="navbar-brand">Logo</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item"><a class="nav-link" routerLink="home" routerLinkActive="activelink">Accueil</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/services" routerLinkActive="activelink">Services</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/about" routerLinkActive="activelink">À propos de nous</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/contact" routerLinkActive="activelink">Contact</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/login" routerLinkActive="activelink">Login</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/signin" routerLinkActive="activelink">Sign In</a></li>
-               <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                      <li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>
-                      <li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
-                  </ul>
-              </li>  -->
-               <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-                      <li><a class="dropdown-item" href="portfolio-overview.html">Portfolio Overview</a></li>
-                      <li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>
-                  </ul>
-              </li>  -->
-           </ul>
+<nav id="navbar" class="navbar">
+    <div class="logo">
+        <h1 class="mt-2"><a href="index.html"><span>Notaire</span></a></h1>
       </div>
-  </div>
-</nav> 
+    <ul>
+      <li><a class="nav-link scrollto" routerLink="/home" routerLinkActive="active">Accueil</a></li>
+      <li><a class="nav-link scrollto" routerLink="/about" routerLinkActive="active">A propos nous</a></li>
+      <li><a class="nav-link scrollto" routerLink="/contact" routerLinkActive="active">Contact</a></li>
+      <li><a class="nav-link scrollto" routerLink="/login" routerLinkActive="active">Log In</a></li>
+      <li><a class="nav-link scrollto" routerLink="/signin" routerLinkActive="active">Sign Up</a></li>
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+  </nav>

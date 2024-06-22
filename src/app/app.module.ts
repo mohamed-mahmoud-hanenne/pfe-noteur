@@ -19,6 +19,7 @@ import { SericesComponent } from './Components/serices/serices.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { AboutComponent } from './Components/about/about.component';
 import { AccueilAdminComponent } from './Components/accueil-admin/accueil-admin.component';
+import { DashboardLayoutComponentComponent } from './Components/dashboard-layout-component/dashboard-layout-component.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { AccueilAdminComponent } from './Components/accueil-admin/accueil-admin.
     SericesComponent,
     ContactComponent,
     AboutComponent,
-    AccueilAdminComponent
+    DashboardLayoutComponentComponent
     
   ],
   imports: [
