@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build",
     "test": "ng test"
   },
   "private": true,
@@ -22,9 +22,7 @@
     "@angular/router": "^16.1.0",
     "@sweetalert2/ngx-sweetalert2": "^12.3.0",
     "@types/bootstrap": "^5.2.10",
-    "@types/chart.js": "^2.9.41",
     "bootstrap": "^5.3.3",
-    "chart.js": "^4.4.3",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",

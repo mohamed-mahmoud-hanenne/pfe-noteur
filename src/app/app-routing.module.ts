@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'dashboard-admin', component: DashbordAdminComponent, canActivate: [AuthGuard] },
   // { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '/', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'services', component: SericesComponent },
   { path: 'about', component: AboutComponent },
