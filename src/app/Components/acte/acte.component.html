@@ -15,63 +15,65 @@
 							</div>
 						</form>
 						<a (click)="openFormAlert(this.acheteursinacte, this.vendeursinacte, this.terrainsinacte)" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						
+						<!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						 -->
 					</div>
                 </div>
             </div>
-           <div class="col-md-12" style="overflow-x: auto">
-			<table class="table table-hover" *ngIf="filteredActe.length > 0">
-                <thead>
-                    <tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-                        <th>Id</th>
-                        <th>Date acte</th>
-                        <th>Montant</th>
-						<th>Nom temoin</th>
-                        <th>NNI temoin</th>
-                        <th>Nom notaire</th>
-                        <th>NNI notaire</th>
-                        <th>Frais notaire</th>
-                        <th>Nom acheteur</th>
-                        <th>Nom vendeur</th>
-						<th>Identifiant terrain</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-				<tbody *ngFor="let acte of filteredActe; index as i">
-					<tr>
-					  <td>
-						<span class="custom-checkbox">
-						  <input type="checkbox" id="checkbox{{i}}" name="options[]" value="1">
-						  <label for="checkbox{{i}}"></label>
-						</span>
-					  </td>
-					  <td>{{acte.id}}</td>
-					  <td>{{acte.date_transaction}}</td>
-					  <td>{{acte.montant}}</td>
-					  <td>{{acte.nom_temoin}}</td>
-					  <td>{{acte.NNI_temoin}}</td>
-					  <td>{{acte.nom_notaire}}</td>
-					  <td>{{acte.NNI_notaire}}</td>
-					  <td>{{acte.frais_notaire}}</td>
-					  <td>{{getAcheteurName(acte.id_acheteur)}}</td>
-					  <td>{{getVendeurName(acte.id_vendeur)}}</td>
-					  <td>{{getTerrainIdentifiant(acte.id_terrain)}}</td>
-					  <td>
-						<a class="edit" data-toggle="modal" (click)="openUpdateAlert(acte, acheteursinacte, vendeursinacte, terrainsinacte)"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a class="delete" data-toggle="modal" (click)="deleteActe(acte.id, i)" style="display: inline-block;"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						<a class="download" style="display: inline-block;" (click)="downloadActe(acte)"><i class="material-icons" data-toggle="tooltip" title="Download">&#xE2C0;</i></a>
-					  </td>
-					</tr>
-				  </tbody>
-				  
-            </table>
-		   </div>
+			<div class="col-md-12">
+				<div class="table-responsive" style="overflow: auto; max-height: 400px;">
+					<table class="table table-hover" *ngIf="filteredActe.length > 0">
+						<thead>
+							<tr>
+								<!-- <th>
+									<span class="custom-checkbox">
+										<input type="checkbox" id="selectAll">
+										<label for="selectAll"></label>
+									</span>
+								</th> -->
+								<th>Id</th>
+								<th>Date acte</th>
+								<th>Montant</th>
+								<th>Nom temoin</th>
+								<th>NNI temoin</th>
+								<th>Nom notaire</th>
+								<th>NNI notaire</th>
+								<th>Frais notaire</th>
+								<th>Nom acheteur</th>
+								<th>Nom vendeur</th>
+								<th>Identifiant terrain</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody *ngFor="let acte of filteredActe; index as i">
+							<tr>
+								<!-- <td>
+									<span class="custom-checkbox">
+										<input type="checkbox" id="checkbox{{i}}" name="options[]" value="1">
+										<label for="checkbox{{i}}"></label>
+									</span>
+								</td> -->
+								<td>{{acte.id}}</td>
+								<td>{{acte.date_transaction}}</td>
+								<td>{{acte.montant}}</td>
+								<td>{{acte.nom_temoin}}</td>
+								<td>{{acte.NNI_temoin}}</td>
+								<td>{{acte.nom_notaire}}</td>
+								<td>{{acte.NNI_notaire}}</td>
+								<td>{{acte.frais_notaire}}</td>
+								<td>{{getAcheteurName(acte.id_acheteur)}}</td>
+								<td>{{getVendeurName(acte.id_vendeur)}}</td>
+								<td>{{getTerrainIdentifiant(acte.id_terrain)}}</td>
+								<td>
+									<a class="edit" data-toggle="modal" (click)="openUpdateAlert(acte, acheteursinacte, vendeursinacte, terrainsinacte)"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+									<a class="delete" data-toggle="modal" (click)="deleteActe(acte.id, i)" style="display: inline-block;"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+									<a class="download" style="display: inline-block;" (click)="downloadActe(acte)"><i class="material-icons" data-toggle="tooltip" title="Download">&#xE2C0;</i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
 			<table class="table table-striped table-hover" *ngIf="noResultat">
                 <tbody>
 					<p class="text-center">Pas de resultats</p>

@@ -16,21 +16,21 @@
 							</div>
 						</form>
 						<a (click)="openFormAlert()" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						
+						<!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						 -->
 					</div>
 					
                 </div>
             </div>
-           <div class="col-md-12" style="overflow-x: auto">
+           <div class="col-md-12" style="overflow: auto; max-height: 400px;">
 			<table class="table table-hover" *ngIf="filteredProcuration.length > 0">
                 <thead>
                     <tr>
-						<th>
+						<!-- <th>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
 								<label for="selectAll"></label>
 							</span>
-						</th>
+						</th> -->
                         <th>Id</th>
                         <th>Nom Parent</th>
                         <th>Prénom Parent</th>
@@ -51,12 +51,12 @@
                 </thead>
                 <tbody  *ngFor="let procuration of filteredProcuration; index as i">
                     <tr>
-						<td>
+						<!-- <td>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span>
-						</td>
+						</td> -->
                         <td>{{procuration.id}}</td>
                         <td>{{procuration.nom_parent}}</td>
                         <td>{{procuration.prenom_parent}}</td>
